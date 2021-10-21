@@ -16,7 +16,10 @@ mix
   .react()
   .sass('resources/sass/app.scss', 'public/css')
   .postCss('resources/css/app.css', 'public/css')
-  .webpackConfig(require('./webpack.config'));
+  .webpackConfig(require('./webpack.config'))
+  .browserSync({
+    proxy: 'app.test',
+  });
 
 if (mix.inProduction()) {
   mix.version();

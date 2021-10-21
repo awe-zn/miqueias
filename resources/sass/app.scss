@@ -1,1 +1,115 @@
-@import '~bootstrap';
+@import './bootstrap';
+
+.hamburguer {
+  border: 0;
+  padding: 0;
+  height: 16px;
+  width: 24px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  background: transparent;
+
+  .line {
+    height: 2px;
+    width: 100%;
+
+    background: $blue-first;
+    transition: 0.3s all;
+  }
+
+  &:not(.collapsed) {
+    .line:nth-child(1) {
+      transform: translate(0px, 7px) rotate(45deg);
+    }
+    .line:nth-child(2) {
+      opacity: 0;
+    }
+    .line:nth-child(3) {
+      transform: translate(0px, -7px) rotate(-45deg);
+    }
+  }
+}
+
+.banner {
+  @extend .rounded;
+
+  background: linear-gradient(
+      90deg,
+      rgba(9, 44, 76, 0.8995973389355743) 0%,
+      rgba(9, 44, 76, 0.9) 100%
+    ),
+    url('/images/banner.png');
+}
+
+.bg-section-index {
+  background: rgba(243, 243, 243, 1);
+
+  @media screen and (min-width: 992px) {
+    background: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0) 20%,
+      20%,
+      rgba(243, 243, 243, 1) 80%,
+      rgba(0, 0, 0, 0) 80%
+    );
+  }
+}
+
+.bg-gradient-label-index {
+  background: linear-gradient(
+    0deg,
+    rgba(63, 137, 178, 0.15) 50%,
+    rgba(0, 0, 0, 0) 50%
+  ) !important;
+}
+
+.bio-area {
+  background-image: url('/images/logo-outline.svg');
+  background-repeat: no-repeat;
+  background-position-x: -150px;
+
+  @media screen and (min-width: 768px) {
+    background-position-x: 32px;
+  }
+}
+
+.text-area {
+  background-image: url('/images/quote.svg');
+  background-repeat: no-repeat;
+  background-position-x: right;
+  background-position-y: 32px;
+}
+
+.shadow-custom {
+  &.logo-index {
+    box-shadow: -12px 12px #e7eff3;
+  }
+}
+
+.fw-black {
+  font-weight: 900 !important;
+}
+
+.accordion {
+  .accordion-button {
+    font-weight: bold;
+
+    &:not(.collapsed) {
+      margin: -2px;
+      width: calc(100% + 4px);
+      border: 2px solid $blue-first;
+      margin-bottom: 0;
+      border-bottom-width: 0;
+    }
+  }
+  .accordion-body {
+    background: $gray-fourth;
+  }
+}
+
+textarea {
+  resize: none;
+}

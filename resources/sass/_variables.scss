@@ -1,0 +1,78 @@
+$brand-first:     #3f89b2;
+$brand-second:    #df8877;
+$brand-third:     #2d6280;
+
+$gray-first:      #4f4f4f;
+$gray-second:     #828282;
+$gray-third:      #f2f2f2;
+$gray-fourth:     #e0e0e0;
+
+$blue-first:      #092c4c;
+
+$black-first:     #333333;
+
+$theme-colors: (
+  'brand-first':    $brand-first,
+  'brand-second':   $brand-second,
+  'brand-third':    $brand-third,
+  'gray-first':     $gray-first,
+  'gray-second':    $gray-second,
+  'gray-third':     $gray-third,
+  'gray-fourth':    $gray-fourth,
+  'blue-first':     $blue-first,
+  'black-first':    $black-first,
+);
+
+$spacer: 1rem;
+$spacers: (
+  0: 0,
+  1: $spacer * .25,
+  2: $spacer * .5,
+  3: $spacer,
+  4: $spacer * 1.5,
+  5: $spacer * 3,
+  'awe-32':   $spacer * 2,
+  'awe-40':   $spacer * 2.5,
+  'awe-56':   $spacer * 3.5,
+  'awe-64':   $spacer * 4,
+  'awe-96':   $spacer * 6,
+  'awe-128':  $spacer * 8,
+  'awe-160':  $spacer * 10,
+);
+
+$font-weight-thin:          100;
+$font-weight-extra-light:   200;
+$font-weight-light:         300;
+$font-weight-regular:       400;
+$font-weight-medium:        500;
+$font-weight-semibold:      600;
+$font-weight-bold:          700;
+$font-weight-extrabold:     800;
+$font-weight-black:         900;
+
+$font-sizes: (
+  0: 0,
+  14: 14px,
+  18: 18px,
+  24: 24px,
+  40: 40px,
+  56: 56px,
+);
+
+$font-family-sans-serif: 'Inter', sans-serif;
+
+$btn-border-radius:   8px;
+
+$accordion-button-active-bg:        $blue-first;
+$accordion-button-active-color:   white;
+$accordion-border-radius:           8px;
+$accordion-border-width:            2px;
+$accordion-button-color:            $blue-first;
+$accordion-padding-x:               1.5rem;
+
+$form-label-font-weight:            bold;
+$form-label-color:                #4f4f4f;
+
+$input-color:                       $form-label-color;
+$input-btn-padding-y:               1rem;
+$input-btn-padding-x:               1.5rem;

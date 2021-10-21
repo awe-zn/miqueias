@@ -1,0 +1,59 @@
+$utilities: (
+  'font-weight': (
+    property: font-weight,
+    class: fw,
+    values: (
+      thin: $font-weight-thin,
+      extra-light: $font-weight-extra-light,
+      light: $font-weight-light,
+      regular: $font-weight-regular,
+      medium: $font-weight-medium,
+      semibold: $font-weight-semibold,
+      bold: $font-weight-bold,
+      extrabold: $font-weight-extrabold,
+      black: $font-weight-black,
+    ),
+  ),
+  'font-size': (
+    property: font-size,
+    class: fz,
+    values: $font-sizes,
+    responsive: true,
+  ),
+  'gap': (
+    property: gap,
+    class: gap,
+    responsive: true,
+    values: $spacers,
+  ),
+  'column-gap': (
+    property: column-gap,
+    class: gapx,
+    responsive: true,
+    values: $spacers,
+  ),
+  'row-gap': (
+    property: row-gap,
+    class: gapy,
+    responsive: true,
+    values: $spacers,
+  ),
+  'color': (
+    property: color,
+    class: text,
+    state: hover,
+    local-vars: (
+      'text-opacity': 1,
+    ),
+    values:
+      map-merge(
+        $utilities-text-colors,
+        (
+          'muted': $text-muted,
+          'black-50': rgba($black, 0.5),
+          'white-50': rgba($white, 0.5),
+          'reset': inherit,
+        )
+      ),
+  ),
+);
