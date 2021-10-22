@@ -1,7 +1,7 @@
 import logo from '../../images/logo.svg';
 
 export const Header = () => (
-  <header className="shadow-sm">
+  <header className="shadow">
     <div className="container py-3">
       <div className="row align-items-center">
         <div className="col-5 col-md-3">
@@ -21,7 +21,7 @@ export const Header = () => (
         </div>
         <div className="col-md-auto ms-md-auto">
           <div className="d-md-block collapse" id="nav">
-            <div className="d-flex flex-column flex-md-row gapy-3 gapx-awe-64 align-items-md-center mt-3 mt-md-0">
+            <div className="d-flex flex-column flex-md-row gapy-3 gapx-awe-64 align-items-md-center mt-awe-32 mt-md-0">
               <a
                 href="#"
                 className="link-blue-first text-decoration-none fw-semibold"

@@ -71,8 +71,18 @@ $accordion-button-color:            $blue-first;
 $accordion-padding-x:               1.5rem;
 
 $form-label-font-weight:            bold;
-$form-label-color:                #4f4f4f;
+$form-label-color:                  $gray-first;
+
+$form-check-input-checked-bg-color:   $blue-first;
 
 $input-color:                       $form-label-color;
 $input-btn-padding-y:               1rem;
 $input-btn-padding-x:               1.5rem;
+
+$breadcrumb-color:                #828282;
+$breadcrumb-divider-color:          $breadcrumb-color;
+$breadcrumb-divider:                url("data:image/svg+xml,%3Csvg width='7' height='13' viewBox='0 0 7 13' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L1 11.5' stroke='%23828282' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
+$breadcrumb-item-padding-x:         0.75rem;
+$breadcrumb-margin-bottom:          0;
+$breadcrumb-active-color:           $blue-first;
+

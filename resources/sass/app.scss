@@ -1,5 +1,9 @@
 @import './bootstrap';
 
+.transition {
+  transition: 0.3s all !important;
+}
+
 .hamburguer {
   border: 0;
   padding: 0;
@@ -112,4 +116,51 @@
 
 textarea {
   resize: none;
+}
+
+.breadcrumb {
+  .breadcrumb-item {
+    font-weight: $font-weight-medium;
+
+    &:not(.active) {
+      color: $breadcrumb-color;
+    }
+  }
+}
+
+.btn-reset {
+  padding: 0 !important;
+  border: none !important;
+}
+
+.sector-select {
+  width: 100%;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 24px 16px 0;
+  min-height: 162px;
+  max-height: 162px;
+  row-gap: 16px;
+
+  background: white;
+  transition: 0.3s all;
+  user-select: none;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  color: $blue-first;
+
+  img {
+    @extend .img-fluid;
+
+    pointer-events: none;
+  }
+
+  &:hover,
+  &.active {
+    background: #3e89b11a;
+    border-color: $brand-first;
+  }
 }

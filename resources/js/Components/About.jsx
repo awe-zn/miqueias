@@ -83,7 +83,7 @@ export const About = () => (
               <p className="text-gray-second py-2">
                 Graduando em Economia <br />
                 Especializando em Direito Digital e <br />
-                atuante na
+                atuante na{' '}
                 <span className="text-decoration-underline">LGPD</span>.
               </p>
               <div className="d-flex flex-column">
