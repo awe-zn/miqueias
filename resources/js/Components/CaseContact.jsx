@@ -1,9 +1,14 @@
 /* eslint-disable consistent-return */
 /* eslint-disable default-case */
 
-import { FaChevronRight } from 'react-icons/fa';
+import { FaChevronRight, FaCheck, FaRegFileAlt } from 'react-icons/fa';
+import { FiFile } from 'react-icons/fi';
 import { useEffect, useRef, useState } from 'react';
+import { useDropzone } from 'react-dropzone';
+import { IMaskInput } from 'react-imask';
 
+import { useForm } from '@inertiajs/inertia-react';
+import { toast } from 'react-toastify';
 import plane from '../../images/cases-contacts/plane.png';
 import games from '../../images/cases-contacts/games.png';
 import socials from '../../images/cases-contacts/socials.png';
@@ -21,6 +26,8 @@ import education from '../../images/cases-contacts/education.png';
 import labor from '../../images/cases-contacts/labor.png';
 import lgpd from '../../images/cases-contacts/lgpd.png';
 import cybercrime from '../../images/cases-contacts/cybercrime.png';
+
+import checked from '../../images/icons/checked.svg';
 
 const sectors = [
   { title: 'Aéreo', icon: plane },
@@ -42,16 +49,40 @@ const sectors = [
   { title: 'Crimes cibernéticos', icon: cybercrime },
 ];
 
-const maxSectors = 6;
+const maxSectors = 5;
 
 export const CaseContact = () => {
   const [sectorIndex, setSectorIndex] = useState(null);
   const [currentStage, setCurrentStage] = useState(1);
-  const [typeEntity, setTypeEntity] = useState('');
-  const [nameCase, setNameCase] = useState('');
-  const [messageCase, setMessageCase] = useState('');
+
+  const { setData, data, post, processing, wasSuccessful, reset } = useForm({
+    sector: '',
+    typeEntityCase: '',
+    typeEntityUser: '',
+    nameCase: '',
+    messageCase: '',
+    nameUser: '',
+    emailUser: '',
+    phoneUser: '',
+    attachFiles: [],
+  });
 
   const sectionEl = useRef(null);
+
+  const { getInputProps, getRootProps, acceptedFiles } = useDropzone({
+    maxSize: 2000000,
+    onDropRejected() {
+      toast.error('Por favor, insira um arquivo menor que 2MB.');
+    },
+  });
+
+  useEffect(() => {
+    if (sectorIndex !== null) setData('sector', sectors[sectorIndex].title);
+  }, [sectorIndex]);
+
+  useEffect(() => {
+    setData('attachFiles', acceptedFiles);
+  }, [acceptedFiles]);
 
   useEffect(() => {
     if (currentStage > maxSectors) setCurrentStage(maxSectors);
@@ -59,8 +90,21 @@ export const CaseContact = () => {
     sectionEl.current.scrollIntoView();
   }, [currentStage]);
 
-  const handleChangeTypeEntity = ({ target: { value } }) => {
-    setTypeEntity(value);
+  const handleNextStep = () => setCurrentStage(currentStage + 1);
+
+  useEffect(() => {
+    if (wasSuccessful) {
+      handleNextStep();
+      reset();
+      setSectorIndex(null);
+    }
+  }, [wasSuccessful]);
+
+  const handleSubmit = () => {
+    post(route('case.contact'), {
+      forceFormData: true,
+      preserveScroll: true,
+    });
   };
 
   return (
@@ -115,7 +159,7 @@ export const CaseContact = () => {
                                 ? 'link-brand-second'
                                 : 'opacity-75 pe-none user-select-none'
                             }`.trim()}
-                            onClick={() => setCurrentStage(currentStage + 1)}
+                            onClick={handleNextStep}
                             disabled={sectorIndex === null}
                           >
                             Prosseguir <FaChevronRight />
@@ -149,11 +193,13 @@ export const CaseContact = () => {
                               <input
                                 className="form-check-input"
                                 type="radio"
-                                name="type-entity"
+                                name="type-entity-case"
                                 value="legal-person"
                                 id="legal-person"
-                                onChange={handleChangeTypeEntity}
-                                checked={typeEntity === 'legal-person'}
+                                onChange={({ target: { value } }) =>
+                                  setData('typeEntityCase', value)
+                                }
+                                checked={data.typeEntityCase === 'legal-person'}
                               />
                               <label
                                 className="form-check-label"
@@ -166,11 +212,15 @@ export const CaseContact = () => {
                               <input
                                 className="form-check-input"
                                 type="radio"
-                                name="type-entity"
+                                name="type-entity-case"
                                 value="individual-person"
                                 id="individual-person"
-                                onChange={handleChangeTypeEntity}
-                                checked={typeEntity === 'individual-person'}
+                                onChange={({ target: { value } }) =>
+                                  setData('typeEntityCase', value)
+                                }
+                                checked={
+                                  data.typeEntityCase === 'individual-person'
+                                }
                               />
                               <label
                                 className="form-check-label"
@@ -181,25 +231,26 @@ export const CaseContact = () => {
                             </div>
                           </div>
                         </div>
-                        {typeEntity && (
+                        {data.typeEntityCase && (
                           <>
                             <div>
                               <label htmlFor="name" className="form-label">
                                 Nome
-                                {typeEntity === 'legal-person' && ' da empresa'}
+                                {data.typeEntityCase === 'legal-person' &&
+                                  ' da empresa'}
                               </label>
                               <input
                                 type="text"
                                 className="form-control"
                                 id="name"
                                 placeholder={`Nome${
-                                  typeEntity === 'legal-person'
+                                  data.typeEntityCase === 'legal-person'
                                     ? ' da empresa'
                                     : ''
                                 }`}
-                                value={nameCase}
+                                value={data.nameCase}
                                 onChange={({ target: { value } }) =>
-                                  setNameCase(value)
+                                  setData('nameCase', value)
                                 }
                               />
                             </div>
@@ -215,26 +266,277 @@ export const CaseContact = () => {
                                 id="exampleFormControlTextarea1"
                                 rows="8"
                                 placeholder="Descreva o seu problema"
-                                value={messageCase}
+                                value={data.messageCase}
                                 onChange={({ target: { value } }) =>
-                                  setMessageCase(value)
+                                  setData('messageCase', value)
                                 }
                               />
                             </div>
                             <button
                               type="button"
                               className={`ms-auto btn-reset fw-bold d-flex flex-row align-items-center gapx-2 transition ${
-                                nameCase && messageCase
+                                data.nameCase && data.messageCase
                                   ? 'link-brand-second'
                                   : 'opacity-75 pe-none user-select-none'
                               }`.trim()}
-                              onClick={() => setCurrentStage(currentStage + 1)}
-                              disabled={!(nameCase && messageCase)}
+                              onClick={handleNextStep}
+                              disabled={!(data.nameCase && data.messageCase)}
                             >
                               Prosseguir <FaChevronRight />
                             </button>
                           </>
                         )}
+                      </div>
+                    );
+                  case 3:
+                    return (
+                      <div className="d-flex flex-column gapy-4">
+                        <ol className="breadcrumb">
+                          <li className="breadcrumb-item">
+                            Sobre o caso <FaCheck className="ms-2" />
+                          </li>
+                          <li className="breadcrumb-item active">
+                            Documentos e arquivos
+                          </li>
+                          <li className="breadcrumb-item" aria-current="page">
+                            Suas informações
+                          </li>
+                        </ol>
+                        <h2 className="fw-bold fz-24 text-blue-first m-0">
+                          Documentos e arquivos{' '}
+                          <small className="fw-regular fz-16">
+                            (Não é obrigatório)
+                          </small>
+                        </h2>
+                        <p className="text-gray-first">
+                          Envie fotografias, pdfs, áudios e demais arquivos que
+                          julgar importante para análise do caso.
+                        </p>
+                        <div className="p-4 border border-gray-fifth rounded">
+                          <h3 className="fw-bold fz-16 text-blue-first mb-3">
+                            Upload de arquivos
+                          </h3>
+
+                          <div className="row gapy-3">
+                            {acceptedFiles.length > 0 && (
+                              <div className="col-lg-5">
+                                <div className="d-flex flex-column gapy-2">
+                                  {acceptedFiles.map(({ name }) => (
+                                    <div
+                                      key={name.replaceAll(' ', '')}
+                                      className="file-uploaded"
+                                    >
+                                      <FaRegFileAlt size={24} />
+                                      <span>{name}</span>
+                                      <img src={checked} alt={name} />
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                            <div className="col-lg">
+                              <div
+                                {...getRootProps({
+                                  className: 'dropzone cursor-pointer',
+                                })}
+                              >
+                                <input {...getInputProps()} />
+                                <div className="py-awe-128 text-center border border-2 border-blue-first border-dashed rounded user-select-none">
+                                  <FiFile
+                                    className="text-blue-first"
+                                    size={48}
+                                  />
+                                  <div className="d-flex flex-column align-items-center gapy-2 mt-4 text-gray-first">
+                                    <span>Arraste os arquivos até aqui</span>
+                                    <span>ou</span>
+                                    <span className="fw-bold text-blue-first ">
+                                      Selecionar arquivos
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <button
+                          type="button"
+                          className="link-brand-second ms-auto btn-reset fw-bold d-flex flex-row align-items-center gapx-2"
+                          onClick={handleNextStep}
+                        >
+                          Prosseguir <FaChevronRight />
+                        </button>
+                      </div>
+                    );
+                  case 4:
+                    return (
+                      <div className="d-flex flex-column gapy-4">
+                        <ol className="breadcrumb">
+                          <li className="breadcrumb-item ">
+                            Sobre o caso <FaCheck className="ms-2" />
+                          </li>
+                          <li className="breadcrumb-item">
+                            Documentos e arquivos <FaCheck className="ms-2" />
+                          </li>
+                          <li
+                            className="breadcrumb-item active"
+                            aria-current="page"
+                          >
+                            Suas informações
+                          </li>
+                        </ol>
+                        <h2 className="fw-bold fz-24 text-blue-first m-0">
+                          Seus dados
+                        </h2>
+                        <div className="d-flex flex-column gapy-3">
+                          <strong className="gray-first fw-bold">
+                            Você é?
+                          </strong>
+                          <div className="d-flex flex-row flex-wrap gapx-4 gapy-2">
+                            <div className="form-check">
+                              <input
+                                className="form-check-input"
+                                type="radio"
+                                name="type-entity-user"
+                                value="legal-person"
+                                id="legal-person"
+                                onChange={({ target: { value } }) =>
+                                  setData('typeEntityUser', value)
+                                }
+                                checked={data.typeEntityUser === 'legal-person'}
+                              />
+                              <label
+                                className="form-check-label"
+                                htmlFor="legal-person"
+                              >
+                                Pessoa Jurídica
+                              </label>
+                            </div>
+                            <div className="form-check">
+                              <input
+                                className="form-check-input"
+                                type="radio"
+                                name="type-entity-user"
+                                value="individual-person"
+                                id="individual-person"
+                                onChange={({ target: { value } }) =>
+                                  setData('typeEntityUser', value)
+                                }
+                                checked={
+                                  data.typeEntityUser === 'individual-person'
+                                }
+                              />
+                              <label
+                                className="form-check-label"
+                                htmlFor="individual-person"
+                              >
+                                Pessoa Física
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        {data.typeEntityUser && (
+                          <>
+                            <div>
+                              <label htmlFor="name" className="form-label">
+                                Nome
+                                {data.typeEntityUser === 'legal-person' &&
+                                  ' da empresa'}
+                              </label>
+                              <input
+                                type="text"
+                                className="form-control"
+                                id="name"
+                                placeholder={`Nome${
+                                  data.typeEntityUser === 'legal-person'
+                                    ? ' da empresa'
+                                    : ''
+                                }`}
+                                value={data.nameUser}
+                                onChange={({ target: { value } }) =>
+                                  setData('nameUser', value)
+                                }
+                              />
+                            </div>
+                            <div className="row">
+                              <div className="col-8">
+                                <div>
+                                  <label htmlFor="email" className="form-label">
+                                    E-mail
+                                    {data.typeEntityUser === 'legal-person' &&
+                                      ' da empresa'}
+                                  </label>
+                                  <input
+                                    type="email"
+                                    className="form-control"
+                                    id="email"
+                                    placeholder="email@email.com"
+                                    value={data.emailUser}
+                                    onChange={({ target: { value } }) =>
+                                      setData('emailUser', value)
+                                    }
+                                  />
+                                </div>
+                              </div>
+                              <div className="col-4">
+                                <div>
+                                  <label htmlFor="phone" className="form-label">
+                                    Celular
+                                    {data.typeEntityUser === 'legal-person' &&
+                                      ' da empresa'}
+                                  </label>
+                                  <IMaskInput
+                                    mask="(00) 0 0000-0000"
+                                    className="form-control"
+                                    placeholder="(00) 0 0000-0000"
+                                    id="phone"
+                                    value={data.phoneUser}
+                                    onAccept={(value) =>
+                                      setData('phoneUser', value)
+                                    }
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                            <button
+                              type="button"
+                              className="btn btn-brand-second text-white ms-auto fw-bold"
+                              onClick={handleSubmit}
+                              disabled={processing}
+                            >
+                              Enviar informações do caso
+                            </button>
+                          </>
+                        )}
+                      </div>
+                    );
+                  case 5:
+                    return (
+                      <div className="py-awe-128 text-center">
+                        <div className="row justify-content-center flex-column align-items-center gapy-4">
+                          <div className="col-auto">
+                            <h2 className="fw-bold fz-24 text-blue-first m-0">
+                              Concluído!
+                            </h2>
+                          </div>
+                          <div className="col-10">
+                            <p className="m-0 text-gray-first">
+                              Suas informações foram enviadas com sucesso e
+                              agora entrarão no processo de análise pelo
+                              advogado para que em até 72h você receba um
+                              retorno, explicando como você pode prosseguir com
+                              o caso.
+                            </p>
+                          </div>
+                          <div className="col-md-6 col-lg-5 col-xl-4">
+                            <button
+                              type="button"
+                              className="btn btn-outline-brand-second text-white-hover text-brand-second w-100 fw-bold"
+                              onClick={() => setCurrentStage(1)}
+                            >
+                              Fechar
+                            </button>
+                          </div>
+                        </div>
                       </div>
                     );
                 }

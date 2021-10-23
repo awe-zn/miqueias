@@ -16,9 +16,9 @@ class ContactRequest extends Mailable
    *
    * @return void
    */
-  public function __construct()
+  public function __construct($input)
   {
-    //
+    $this->input = $input;
   }
 
   /**
@@ -28,6 +28,6 @@ class ContactRequest extends Mailable
    */
   public function build()
   {
-    return $this->view('email.contact');
+    return $this->view('mail.contact', ['input' => $this->input]);
   }
 }

@@ -122,6 +122,9 @@ textarea {
   .breadcrumb-item {
     font-weight: $font-weight-medium;
 
+    display: flex;
+    align-items: center;
+
     &:not(.active) {
       color: $breadcrumb-color;
     }
@@ -162,5 +165,38 @@ textarea {
   &.active {
     background: #3e89b11a;
     border-color: $brand-first;
+  }
+}
+
+.border-dashed {
+  border-style: dashed !important;
+}
+
+.cursor-pointer {
+  cursor: pointer !important;
+}
+
+.file-uploaded {
+  padding: 16px 24px;
+  border: 1px solid $gray-fifth;
+
+  @extend .rounded;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 8px;
+
+  svg {
+    color: $blue-first;
+  }
+  img {
+    margin-left: auto;
+  }
+  span {
+    @extend .text-truncate;
+
+    color: $blue-first;
+    font-weight: bold;
   }
 }

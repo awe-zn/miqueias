@@ -17,8 +17,6 @@ class ContactController extends Controller
    */
   public function store(Request $request)
   {
-    sleep(5);
-
     $input = (object) Validator::make($request->all(), [
       'name' => ['required', 'string'],
       'email' => ['required', 'email'],
@@ -26,8 +24,8 @@ class ContactController extends Controller
       'message' => ['required', 'string'],
     ])->validate();
 
-    Mail::to(env('MAIL_CONTACT'))->send(new ContactRequest());
+    Mail::to(env('MAIL_CONTACT'))->send(new ContactRequest($input));
 
-    return redirect()->route('home')->with('x', 'x');
+    return redirect()->route('home');
   }
 }

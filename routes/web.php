@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CaseContactController;
 use App\Http\Controllers\ContactController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -20,3 +21,4 @@ Route::get('/', function () {
   return Inertia::render('Home');
 })->name('home');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact');
+Route::post('/case/contact', [CaseContactController::class, 'store'])->name('case.contact');

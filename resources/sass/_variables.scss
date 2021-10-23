@@ -6,6 +6,7 @@ $gray-first:      #4f4f4f;
 $gray-second:     #828282;
 $gray-third:      #f2f2f2;
 $gray-fourth:     #e0e0e0;
+$gray-fifth:      #bdbdbd;
 
 $blue-first:      #092c4c;
 
@@ -19,6 +20,7 @@ $theme-colors: (
   'gray-second':    $gray-second,
   'gray-third':     $gray-third,
   'gray-fourth':    $gray-fourth,
+  'gray-fifth':     $gray-fifth,
   'blue-first':     $blue-first,
   'black-first':    $black-first,
 );
@@ -53,6 +55,7 @@ $font-weight-black:         900;
 $font-sizes: (
   0: 0,
   14: 14px,
+  16: 16px,
   18: 18px,
   24: 24px,
   40: 40px,
