@@ -54,6 +54,7 @@ const maxSectors = 5;
 export const CaseContact = () => {
   const [sectorIndex, setSectorIndex] = useState(null);
   const [currentStage, setCurrentStage] = useState(1);
+  const [dragging, setDragging] = useState(false);
 
   const { setData, data, post, processing, wasSuccessful, reset } = useForm({
     sector: '',
@@ -73,6 +74,15 @@ export const CaseContact = () => {
     maxSize: 2000000,
     onDropRejected() {
       toast.error('Por favor, insira um arquivo menor que 2MB.');
+    },
+    onDragEnter() {
+      setDragging(true);
+    },
+    onDragLeave() {
+      setDragging(false);
+    },
+    onDrop() {
+      setDragging(false);
     },
   });
 
@@ -337,21 +347,39 @@ export const CaseContact = () => {
                             <div className="col-lg">
                               <div
                                 {...getRootProps({
-                                  className: 'dropzone cursor-pointer',
+                                  className: `cursor-pointer ${
+                                    dragging ? 'dragging' : ''
+                                  }`.trim(),
                                 })}
                               >
                                 <input {...getInputProps()} />
-                                <div className="py-awe-128 text-center border border-2 border-blue-first border-dashed rounded user-select-none">
+                                <div
+                                  className={`py-awe-128 text-center border border-2 border-blue-first rounded user-select-none transition ${
+                                    !dragging ? 'border-dashed' : ''
+                                  }`.trim()}
+                                >
                                   <FiFile
                                     className="text-blue-first"
                                     size={48}
                                   />
                                   <div className="d-flex flex-column align-items-center gapy-2 mt-4 text-gray-first">
-                                    <span>Arraste os arquivos até aqui</span>
-                                    <span>ou</span>
-                                    <span className="fw-bold text-blue-first ">
-                                      Selecionar arquivos
-                                    </span>
+                                    {dragging ? (
+                                      <>
+                                        <span>Solte os arquivos aqui!</span>
+                                        <span>&nbsp;</span>
+                                        <span>&nbsp;</span>
+                                      </>
+                                    ) : (
+                                      <>
+                                        <span>
+                                          Arraste os arquivos até aqui
+                                        </span>
+                                        <span>ou</span>
+                                        <span className="fw-bold text-blue-first ">
+                                          Selecionar arquivos
+                                        </span>
+                                      </>
+                                    )}
                                   </div>
                                 </div>
                               </div>

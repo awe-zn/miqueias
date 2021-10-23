@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\CaseContact;
+use App\Mail\CaseUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
@@ -34,6 +35,7 @@ class CaseContactController extends Controller
     $input->typeEntityUser = $input->typeEntityUser === 'legal-person' ? 'Pessoa Jurídica' : 'Pessoa Física';
 
     Mail::to(env('MAIL_CONTACT'))->send(new CaseContact($input));
+    Mail::to($input->emailUser)->send(new CaseUser());
 
     return redirect()->route('home');
   }
