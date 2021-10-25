@@ -6,9 +6,11 @@ import { FiFile } from 'react-icons/fi';
 import { useEffect, useRef, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { IMaskInput } from 'react-imask';
-
-import { useForm } from '@inertiajs/inertia-react';
+import { useForm, usePage } from '@inertiajs/inertia-react';
 import { toast } from 'react-toastify';
+
+import imageHelper from '../helper/image';
+
 import plane from '../../images/cases-contacts/plane.png';
 import games from '../../images/cases-contacts/games.png';
 import socials from '../../images/cases-contacts/socials.png';
@@ -52,6 +54,8 @@ const sectors = [
 const maxSectors = 5;
 
 export const CaseContact = () => {
+  const { appEnvironment } = usePage().props;
+
   const [sectorIndex, setSectorIndex] = useState(null);
   const [currentStage, setCurrentStage] = useState(1);
   const [dragging, setDragging] = useState(false);
@@ -156,7 +160,13 @@ export const CaseContact = () => {
                                   }`.trim()}
                                   onClick={() => setSectorIndex(index)}
                                 >
-                                  <img src={icon} alt={title} />
+                                  <img
+                                    src={imageHelper({
+                                      path: icon,
+                                      appEnvironment,
+                                    })}
+                                    alt={title}
+                                  />
                                   {title}
                                 </button>
                               </div>
@@ -338,7 +348,13 @@ export const CaseContact = () => {
                                     >
                                       <FaRegFileAlt size={24} />
                                       <span>{name}</span>
-                                      <img src={checked} alt={name} />
+                                      <img
+                                        src={imageHelper({
+                                          path: checked,
+                                          appEnvironment,
+                                        })}
+                                        alt={name}
+                                      />
                                     </div>
                                   ))}
                                 </div>
