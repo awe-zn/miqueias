@@ -45,7 +45,7 @@
       rgba(9, 44, 76, 0.8995973389355743) 0%,
       rgba(9, 44, 76, 0.9) 100%
     ),
-    url('/images/banner.png');
+    url('/public/images/banner.png');
 }
 
 .bg-section-index {
@@ -71,7 +71,7 @@
 }
 
 .bio-area {
-  background-image: url('/images/logo-outline.svg');
+  background-image: url('/public/images/logo-outline.svg');
   background-repeat: no-repeat;
   background-position-x: -150px;
 
@@ -81,7 +81,7 @@
 }
 
 .text-area {
-  background-image: url('/images/quote.svg');
+  background-image: url('/public/images/quote.svg');
   background-repeat: no-repeat;
   background-position-x: right;
   background-position-y: 32px;
