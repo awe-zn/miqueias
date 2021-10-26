@@ -1,3 +1,4 @@
+import { usePage } from '@inertiajs/inertia-react';
 import logoWhite from '../../images/logo-white.svg';
 
 import imageHelper from '../helper/image';
