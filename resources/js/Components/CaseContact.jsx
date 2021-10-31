@@ -28,6 +28,8 @@ import education from '../../images/cases-contacts/education.png';
 import labor from '../../images/cases-contacts/labor.png';
 import lgpd from '../../images/cases-contacts/lgpd.png';
 import cybercrime from '../../images/cases-contacts/cybercrime.png';
+import family from '../../images/cases-contacts/family.png';
+import old from '../../images/cases-contacts/old.png';
 
 import checked from '../../images/icons/checked.svg';
 
@@ -49,6 +51,8 @@ const sectors = [
   { title: 'Trabalhista', icon: labor },
   { title: 'LGPD', icon: lgpd },
   { title: 'Crimes cibernéticos', icon: cybercrime },
+  { title: 'Previdenciário', icon: old },
+  { title: 'Família e Sucessões', icon: family },
 ];
 
 const maxSectors = 5;
