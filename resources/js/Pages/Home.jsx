@@ -1,4 +1,3 @@
-import { About } from '../Components/About';
 import { Banner } from '../Components/Banner';
 import { CaseContact } from '../Components/CaseContact';
 import { Contact } from '../Components/Contact';
@@ -13,11 +12,10 @@ export default function Home() {
       <main>
         <Banner />
         <CaseContact />
-        <About />
         <Question />
         <Contact />
-        <Footer />
       </main>
+      <Footer />
     </>
   );
 }

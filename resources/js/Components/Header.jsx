@@ -12,11 +12,13 @@ export const Header = () => {
       <div className="container py-3">
         <div className="row align-items-center">
           <div className="col-5 col-md-3">
-            <img
-              src={imageHelper({ appEnvironment, path: logo })}
-              alt="logo"
-              className="img-fluid"
-            />
+            <a href={route('home')}>
+              <img
+                src={imageHelper({ appEnvironment, path: logo })}
+                alt="logo"
+                className="img-fluid"
+              />
+            </a>
           </div>
           <div className="col-auto d-md-none ms-auto">
             <button
@@ -34,13 +36,13 @@ export const Header = () => {
             <div className="d-md-block collapse" id="nav">
               <div className="d-flex flex-column flex-md-row gapy-3 gapx-awe-64 align-items-md-center mt-awe-32 mt-md-0">
                 <a
-                  href="#"
+                  href={route('about')}
                   className="link-blue-first text-decoration-none fw-semibold"
                 >
                   Sobre
                 </a>
                 <a
-                  href="#"
+                  href={`${route('home')}/#question`}
                   className="link-blue-first text-decoration-none fw-semibold"
                 >
                   Perguntas frequentes

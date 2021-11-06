@@ -15,12 +15,12 @@ export const Banner = () => (
                     nós avaliamos e te retornamos a melhor solução possível para
                     o seu caso.
                   </p>
-                  <button
-                    type="button"
+                  <a
+                    href="#problems"
                     className="btn btn-brand-second fw-bold text-white"
                   >
                     Quero resolver meu caso!
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>

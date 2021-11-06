@@ -20,5 +20,6 @@ use Inertia\Inertia;
 Route::get('/', function () {
   return Inertia::render('Home');
 })->name('home');
+Route::get('/about', fn () => Inertia::render('About'))->name('about');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact');
 Route::post('/case/contact', [CaseContactController::class, 'store'])->name('case.contact');

@@ -126,7 +126,7 @@ export const CaseContact = () => {
   };
 
   return (
-    <section ref={sectionEl}>
+    <section ref={sectionEl} id="problems">
       <div className="container pt-4 pb-5">
         <div className="row justify-content-center">
           <div className="col-md-11 col-lg-10">
