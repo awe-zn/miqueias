@@ -27,6 +27,10 @@ class User extends Authenticatable
     'name',
     'email',
     'password',
+    'phone_number',
+    'role',
+    'addres_id',
+    'office_id',
   ];
 
   /**
@@ -50,12 +54,18 @@ class User extends Authenticatable
     'email_verified_at' => 'datetime',
   ];
 
-  /**
-   * The accessors to append to the model's array form.
-   *
-   * @var array
-   */
-  protected $appends = [
-    'profile_photo_url',
-  ];
+  public function office()
+  {
+    return $this->belongsTo(Office::class);
+  }
+
+  public function addres()
+  {
+    return $this->hasOne(Addres::class, 'id', 'addres_id');
+  }
+
+  public function avatar()
+  {
+    return $this->hasOne(Avatar::class, 'id', 'avatar_id');
+  }
 }

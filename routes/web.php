@@ -2,24 +2,30 @@
 
 use App\Http\Controllers\CaseContactController;
 use App\Http\Controllers\ContactController;
-use Illuminate\Foundation\Application;
+use App\Http\Controllers\LoginController;
+use App\Models\Office;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::get('/', function () {
   return Inertia::render('Home');
-})->name('home');
-Route::get('/about', fn () => Inertia::render('About'))->name('about');
+})->name('homesite');
+
+Route::get('/about', function () {
+  return Inertia::render('About');
+})->name('about');
+
 Route::post('/contact', [ContactController::class, 'store'])->name('contact');
 Route::post('/case/contact', [CaseContactController::class, 'store'])->name('case.contact');
+
+
+Route::middleware('guest')->group(function () {
+  Route::get('/login', [LoginController::class, 'create'])->name('login');
+});
+
+
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+  Route::inertia('/dashboard', 'Dashboard')->name('home');
+  Route::inertia('/profile', 'Profile')->name('profile');
+});

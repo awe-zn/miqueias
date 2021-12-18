@@ -8,10 +8,9 @@ import { ToastContainer } from 'react-toastify';
 import { InertiaProgress } from '@inertiajs/progress';
 
 import 'react-toastify/dist/ReactToastify.min.css';
-import 'bootstrap';
 
 createInertiaApp({
-  resolve: (name) => require(`./Pages/${name}`),
+  resolve: (name) => require(`./pages/${name}`),
   setup({ el, App, props }) {
     render(
       <>

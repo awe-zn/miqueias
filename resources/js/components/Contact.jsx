@@ -55,7 +55,7 @@ export const Contact = () => {
                         className={`form-control ${
                           errors.name
                             ? 'is-invalid'
-                            : wasTried && !processing && 'is-valid'
+                            : (wasTried && !processing && 'is-valid') || ''
                         }`.trim()}
                         id="name"
                         placeholder="Seu nome"
@@ -74,7 +74,7 @@ export const Contact = () => {
                         className={`form-control ${
                           errors.email
                             ? 'is-invalid'
-                            : wasTried && !processing && 'is-valid'
+                            : (wasTried && !processing && 'is-valid') || ''
                         }`.trim()}
                         id="email"
                         placeholder="email@email.com"
@@ -93,7 +93,7 @@ export const Contact = () => {
                         className={`form-control ${
                           errors.subject
                             ? 'is-invalid'
-                            : wasTried && !processing && 'is-valid'
+                            : (wasTried && !processing && 'is-valid') || ''
                         }`.trim()}
                         id="subject"
                         placeholder="Assunto"
@@ -114,7 +114,7 @@ export const Contact = () => {
                       className={`form-control flex-grow-1 ${
                         errors.message
                           ? 'is-invalid'
-                          : wasTried && !processing && 'is-valid'
+                          : (wasTried && !processing && 'is-valid') || ''
                       }`.trim()}
                       id="message"
                       rows="3"

@@ -1,18 +1,18 @@
-import { usePage } from '@inertiajs/inertia-react';
+import { usePage, Link } from '@inertiajs/inertia-react';
 
 import imageHelper from '../helper/image';
 
 import logo from '../../images/logo.svg';
 
 export const Header = () => {
-  const { appEnvironment } = usePage().props;
+  const { appEnvironment, user } = usePage().props;
 
   return (
     <header className="shadow">
       <div className="container py-3">
         <div className="row align-items-center">
           <div className="col-5 col-md-3">
-            <a href={route('home')}>
+            <a href={route('homesite')}>
               <img
                 src={imageHelper({ appEnvironment, path: logo })}
                 alt="logo"
@@ -47,12 +47,12 @@ export const Header = () => {
                 >
                   Perguntas frequentes
                 </a>
-                <a
-                  href="#"
+                <Link
+                  href={route('login')}
                   className="btn btn-outline-blue-first fw-bold border-2"
                 >
-                  Login
-                </a>
+                  {user ? 'Acessar sistema' : 'Login'}
+                </Link>
               </div>
             </div>
           </div>

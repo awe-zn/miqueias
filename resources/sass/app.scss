@@ -1,4 +1,5 @@
-@import './bootstrap';
+@import 'bootstrap';
+@import 'components';
 
 .transition {
   transition: 0.3s all !important;
@@ -198,5 +199,32 @@ textarea {
 
     color: $blue-first;
     font-weight: bold;
+  }
+}
+
+.logo-login {
+  height: 64px !important;
+}
+
+.dropdown-fit {
+  padding: 0;
+
+  &::after {
+    display: none;
+  }
+}
+
+.object-cover {
+  object-fit: cover !important;
+}
+
+.user-name {
+  @extend .text-truncate;
+
+  @include media-breakpoint-down(md) {
+    max-width: 225px;
+  }
+  @include media-breakpoint-down(sm) {
+    max-width: 125px;
   }
 }
