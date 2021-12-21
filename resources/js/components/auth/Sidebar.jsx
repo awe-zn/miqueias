@@ -51,14 +51,18 @@ export const Sidebar = () => {
                 </Link>
               </li>
               <li>
-                <Link>
+                <Link
+                  href={route('client.index')}
+                  className={
+                    route().current().startsWith('client') ? 'active' : ''
+                  }
+                >
                   <FaRegAddressCard size={24} />
                   <span className="label">Clientes</span>
                 </Link>
               </li>
             </>
           )}
-
           <li>
             <Link>
               <FaRegComment size={24} />
@@ -66,7 +70,12 @@ export const Sidebar = () => {
             </Link>
           </li>
           <li>
-            <Link>
+            <Link
+              href={route('process.index')}
+              className={
+                route().current().startsWith('process') ? 'active' : ''
+              }
+            >
               <FaRegFolder size={24} />
               <span className="label">Processos</span>
             </Link>

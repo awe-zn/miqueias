@@ -30,6 +30,11 @@ import lgpd from '../../images/cases-contacts/lgpd.png';
 import cybercrime from '../../images/cases-contacts/cybercrime.png';
 import family from '../../images/cases-contacts/family.png';
 import old from '../../images/cases-contacts/old.png';
+import tributary from '../../images/cases-contacts/tributary.png';
+import creditRecovery from '../../images/cases-contacts/creditRecovery.png';
+import business from '../../images/cases-contacts/business.png';
+import agribusiness from '../../images/cases-contacts/agribusiness.png';
+import criminal from '../../images/cases-contacts/criminal.png';
 
 import checked from '../../images/icons/checked.svg';
 
@@ -53,6 +58,11 @@ const sectors = [
   { title: 'Crimes cibernéticos', icon: cybercrime },
   { title: 'Previdenciário', icon: old },
   { title: 'Família e Sucessões', icon: family },
+  { title: 'Tributário', icon: tributary },
+  { title: 'Recuperação de crédito', icon: creditRecovery },
+  { title: 'Empresarial', icon: business },
+  { title: 'Agronegócio', icon: agribusiness },
+  { title: 'Penal', icon: criminal },
 ];
 
 const maxSectors = 5;
