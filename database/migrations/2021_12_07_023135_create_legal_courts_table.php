@@ -14,7 +14,7 @@ class CreateLegalCourtsTable extends Migration
   public function up()
   {
     Schema::create('legal_courts', function (Blueprint $table) {
-      $table->id();
+      $table->bigIncrements('id');
       $table->string('name');
       $table->timestampsTz();
     });

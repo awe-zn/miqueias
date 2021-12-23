@@ -14,12 +14,12 @@ class CreateEventsTable extends Migration
   public function up()
   {
     Schema::create('events', function (Blueprint $table) {
-      $table->id();
+      $table->bigIncrements('id');
       $table->string('title', 64);
       $table->string('description', 128);
       $table->dateTimeTz('starts_in');
       $table->dateTimeTz('ends_at');
-      $table->integer('process_id');
+      $table->integer('process_id')->unsigned();
       $table->foreign('process_id')->references('id')->on('process')->onDelete('CASCADE')->onUpdate('CASCADE');
       $table->timestampsTz();
     });

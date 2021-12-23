@@ -14,11 +14,11 @@ class CreateRelationshipsUser extends Migration
   public function up()
   {
     Schema::table('users', function (Blueprint $table) {
-      $table->integer('addres_id')->nullable();
+      $table->integer('addres_id')->unsigned()->nullable();
       $table->foreign('addres_id')->references('id')->on('adresses')->onDelete('SET NULL')->onUpdate('CASCADE');
-      $table->integer('office_id');
+      $table->integer('office_id')->unsigned();
       $table->foreign('office_id')->references('id')->on('offices')->onDelete('CASCADE')->onUpdate('CASCADE');
-      $table->integer('avatar_id')->nullable();
+      $table->integer('avatar_id')->unsigned()->nullable();
       $table->foreign('avatar_id')->references('id')->on('avatars')->onDelete('SET NULL')->onUpdate('CASCADE');
     });
   }

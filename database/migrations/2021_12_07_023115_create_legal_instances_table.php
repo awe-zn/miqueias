@@ -14,7 +14,7 @@ class CreateLegalInstancesTable extends Migration
   public function up()
   {
     Schema::create('legal_instances', function (Blueprint $table) {
-      $table->id();
+      $table->bigIncrements('id');
       $table->string('name');
       $table->timestampsTz();
     });

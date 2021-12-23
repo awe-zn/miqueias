@@ -14,10 +14,10 @@ class CreateCountiesTable extends Migration
   public function up()
   {
     Schema::create('counties', function (Blueprint $table) {
-      $table->id();
+      $table->bigIncrements('id');
       $table->integer('code');
       $table->string('name', 64);
-      $table->integer('state_code');
+      $table->integer('state_code')->unsigned();
       $table->foreign('state_code')->references('code')->on('states')->onDelete('CASCADE')->onUpdate('CASCADE');
       $table->timestampsTz();
     });
