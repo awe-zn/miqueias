@@ -9,8 +9,6 @@ class LegalForumSeeder extends Seeder
 {
   public function run()
   {
-    LegalForum::truncate();
-
     $legal_forums = array('Fórum Regional I');
 
     foreach ($legal_forums as $legal_forum) {

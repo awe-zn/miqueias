@@ -9,8 +9,6 @@ class LegalInstanceSeeder extends Seeder
 {
   public function run()
   {
-    LegalInstance::truncate();
-
     $legal_instances = array('1ª instância', '2ª instância');
 
     foreach ($legal_instances as $legal_instance) {
