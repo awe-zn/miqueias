@@ -14,7 +14,7 @@ class CreateProcessTable extends Migration
   public function up()
   {
     Schema::create('process', function (Blueprint $table) {
-      $table->bigIncrements('id');
+      $table->increments('id');
       $table->string('title', 64);
       $table->string('code', 16);
       $table->string('judgment', 32);

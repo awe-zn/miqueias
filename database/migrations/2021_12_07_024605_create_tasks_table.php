@@ -14,7 +14,7 @@ class CreateTasksTable extends Migration
   public function up()
   {
     Schema::create('tasks', function (Blueprint $table) {
-      $table->bigIncrements('id');
+      $table->increments('id');
       $table->string('title', 64);
       $table->string('description', 128);
       $table->dateTimeTz('schedule_at');

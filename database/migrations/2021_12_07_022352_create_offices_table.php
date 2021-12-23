@@ -14,7 +14,7 @@ class CreateOfficesTable extends Migration
   public function up()
   {
     Schema::create('offices', function (Blueprint $table) {
-      $table->bigIncrements('id');
+      $table->increments('id');
       $table->string('name', 64);
       $table->string('email', 64)->unique();
       $table->string('identification_document', 14)->unique();
