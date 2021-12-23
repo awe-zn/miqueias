@@ -9,8 +9,10 @@ class OfficeSeeder extends Seeder
 {
   public function run()
   {
-    Office::truncate();
+    if (app()->environment('local')) {
+      Office::truncate();
 
-    Office::factory(20)->create();
+      Office::factory(20)->create();
+    }
   }
 }

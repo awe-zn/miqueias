@@ -9,8 +9,10 @@ class AddresSeeder extends Seeder
 {
   public function run()
   {
-    Addres::truncate();
+    if (app()->environment('local')) {
+      Addres::truncate();
 
-    Addres::factory(20)->create();
+      Addres::factory(20)->create();
+    }
   }
 }

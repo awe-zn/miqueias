@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 use Faker\Factory;
+use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
@@ -13,15 +14,17 @@ class UserSeeder extends Seeder
   {
     User::truncate();
 
-    User::factory(20)->create();
+    if (app()->environment('local')) {
+      User::factory(20)->create();
+    }
 
     $faker = Factory::create();
 
     $users = array([
       'name' => 'Daniel Souza',
-      'email' => 'daniel@email.com',
+      'email' => 'miqueiascostaadv@gmail.com',
       'email_verified_at' => now(),
-      'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+      'password' => Hash::make('LlCsU1NrZX'),
       'remember_token' => Str::random(10),
       'phone_number' => $faker->phoneNumber(),
       'role' => 'advocate',
