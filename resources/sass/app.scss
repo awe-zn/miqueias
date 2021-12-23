@@ -1,6 +1,17 @@
 @import 'bootstrap';
 @import 'components';
 
+#app {
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+
+  > footer {
+    margin-top: auto;
+  }
+}
+
 .transition {
   transition: 0.3s all !important;
 }
@@ -204,6 +215,10 @@ textarea {
 
 .logo-login {
   height: 64px !important;
+}
+
+.text-content * {
+  margin: 0;
 }
 
 .dropdown-fit {

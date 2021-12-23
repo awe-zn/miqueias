@@ -1,6 +1,6 @@
 export const Question = () => (
   <section id="question">
-    <div className="container">
+    <div className="container pt-4">
       <div className="row justify-content-center">
         <div className="col-md-11 col-lg-10">
           <div className="bg-gray-third p-4 p-md-awe-32 rounded">

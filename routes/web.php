@@ -8,17 +8,12 @@ use App\Http\Controllers\ProcessController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-  return Inertia::render('Home');
-})->name('homesite');
-
-Route::get('/about', function () {
-  return Inertia::render('About');
-})->name('about');
+Route::inertia('/', 'Home')->name('homesite');
+Route::inertia('/about', 'About')->name('about');
+Route::inertia('/action', 'Action')->name('action');
 
 Route::post('/contact', [ContactController::class, 'store'])->name('contact');
 Route::post('/case/contact', [CaseContactController::class, 'store'])->name('case.contact');
-
 
 Route::middleware('guest')->group(function () {
   Route::get('/login', [LoginController::class, 'create'])->name('login');

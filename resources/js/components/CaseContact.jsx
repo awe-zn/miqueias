@@ -73,6 +73,7 @@ export const CaseContact = () => {
   const [sectorIndex, setSectorIndex] = useState(null);
   const [currentStage, setCurrentStage] = useState(1);
   const [dragging, setDragging] = useState(false);
+  const [firstAccess, setFirstAccess] = useState(true);
 
   const { setData, data, post, processing, wasSuccessful, reset } = useForm({
     sector: '',
@@ -105,6 +106,10 @@ export const CaseContact = () => {
   });
 
   useEffect(() => {
+    setFirstAccess(false);
+  }, []);
+
+  useEffect(() => {
     if (sectorIndex !== null) setData('sector', sectors[sectorIndex].title);
   }, [sectorIndex]);
 
@@ -115,7 +120,7 @@ export const CaseContact = () => {
   useEffect(() => {
     if (currentStage > maxSectors) setCurrentStage(maxSectors);
 
-    sectionEl.current.scrollIntoView();
+    if (!firstAccess) sectionEl.current.scrollIntoView();
   }, [currentStage]);
 
   const handleNextStep = () => setCurrentStage(currentStage + 1);
@@ -137,7 +142,7 @@ export const CaseContact = () => {
 
   return (
     <section ref={sectionEl} id="problems">
-      <div className="container pt-4 pb-5">
+      <div className="container pt-4 pb-4">
         <div className="row justify-content-center">
           <div className="col-md-11 col-lg-10">
             <div className="bg-gray-third p-4 p-md-awe-32 rounded">
