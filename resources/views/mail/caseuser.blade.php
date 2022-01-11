@@ -4,8 +4,9 @@
   <div style="background-color: rgba(9, 44, 76, 0.9); color: white;">
     <div
       style="max-width: 500px; margin: auto; text-align: center; padding: 64px 32px 128px;">
-      <img src="{{ asset('images/logo-white.png') }}" alt="Logo"
-        style="width: 350px; max-width: 100%; min-height: auto;">
+      <img
+        src="{{ asset(env('APP_ENV') !== 'production' ? 'images/logo-white.png' : 'public/images/logo-white.png') }}"
+        alt="Logo" style="width: 350px; max-width: 100%; min-height: auto;">
       <h1
         style="text-align: left; margin: 64px 0; font-weight: 400; font-size: 40px; line-height: 1.25;">
         <strong>Olá {{ $contact->nameUser }}.</strong> Seja bem-vindo ao
