@@ -16,9 +16,9 @@ class CaseUser extends Mailable
    *
    * @return void
    */
-  public function __construct()
+  public function __construct($input)
   {
-    //
+    $this->input = $input;
   }
 
   /**
@@ -28,6 +28,13 @@ class CaseUser extends Mailable
    */
   public function build()
   {
-    return $this->view('mail.caseuser');
+    $hasAttachs = false;
+    if (property_exists($this->input, 'attachFiles')) {
+      $hasAttachs = $this->input->attachFiles ? true : false;
+    }
+
+    $this->input->hasAttachs = $hasAttachs;
+
+    return $this->view('mail.caseuser', ['contact' => $this->input])->subject('Olá ' . $this->input->nameUser . '. Seja bem-vindo!');
   }
 }

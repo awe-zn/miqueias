@@ -28,6 +28,6 @@ class ContactRequest extends Mailable
    */
   public function build()
   {
-    return $this->view('mail.contact', ['input' => $this->input]);
+    return $this->view('mail.contact', ['contact' => $this->input]);
   }
 }

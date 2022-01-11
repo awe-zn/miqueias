@@ -20,6 +20,6 @@ class ContactController extends Controller
 
     Mail::to(env('MAIL_CONTACT'))->send(new ContactRequest($input));
 
-    return redirect()->route('home');
+    return redirect()->route('homesite');
   }
 }

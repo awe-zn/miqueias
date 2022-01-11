@@ -5,6 +5,9 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProcessController;
+use App\Mail\CaseContact;
+use App\Mail\CaseUser;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -18,7 +21,6 @@ Route::post('/case/contact', [CaseContactController::class, 'store'])->name('cas
 Route::middleware('guest')->group(function () {
   Route::get('/login', [LoginController::class, 'create'])->name('login');
 });
-
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
   Route::inertia('/dashboard', 'Dashboard')->name('home');

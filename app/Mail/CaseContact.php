@@ -28,13 +28,22 @@ class CaseContact extends Mailable
    */
   public function build()
   {
-    $mail = $this->view('mail.case', ['contact' => $this->input]);
+    $hasAttachs = false;
+    if (property_exists($this->input, 'attachFiles')) {
+      $hasAttachs = $this->input->attachFiles ? true : false;
+    }
 
-    foreach ($this->input->attachFiles as $file) {
-      $mail->attach($file, [
-        'as' => $file->getClientOriginalName(),
-        'mime' => $file->getMimeType(),
-      ]);
+    $this->input->hasAttachs = $hasAttachs;
+
+    $mail = $this->view('mail.case', ['contact' => $this->input])->subject('Interesse em novo processo!');
+
+    if (property_exists($this->input, 'attachFiles')) {
+      foreach ($this->input->attachFiles as $file) {
+        $mail->attach($file, [
+          'as' => $file->getClientOriginalName(),
+          'mime' => $file->getMimeType(),
+        ]);
+      }
     }
 
     return $mail;

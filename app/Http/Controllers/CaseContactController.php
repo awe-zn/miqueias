@@ -29,8 +29,8 @@ class CaseContactController extends Controller
     $input->typeEntityUser = $input->typeEntityUser === 'legal-person' ? 'Pessoa Jurídica' : 'Pessoa Física';
 
     Mail::to(env('MAIL_CONTACT'))->send(new CaseContact($input));
-    Mail::to($input->emailUser)->send(new CaseUser());
+    Mail::to($input->emailUser)->send(new CaseUser($input));
 
-    return redirect()->route('home');
+    return redirect()->route('homesite');
   }
 }
