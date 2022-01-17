@@ -9,7 +9,14 @@ export const Footer = () => (
             <span>Miquéias Costa - 2021</span>
             <div className="d-flex flex-row gapx-4 ms-auto">
               <FaFacebook size={24} />
-              <FaInstagram size={24} />
+              <a
+                href="//instagram.com/miqueiascadv"
+                target="_blank"
+                rel="noreferrer"
+                className="link-blue-first text-decoration-none"
+              >
+                <FaInstagram size={24} />
+              </a>
             </div>
           </div>
         </div>

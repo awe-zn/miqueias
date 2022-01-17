@@ -14,7 +14,7 @@
       </h1>
       <p style="text-align: left; margin: 0; font-size: 18px;">
         Estamos aqui para confirmar que recebemos o seu contato. O Dr. Miquéias
-        Costas irá avaliar a sua demanda e entrará em contato brevemente.
+        Costa irá avaliar a sua demanda e entrará em contato brevemente.
       </p>
     </div>
   </div>
