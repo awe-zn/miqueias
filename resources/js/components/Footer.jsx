@@ -1,4 +1,4 @@
-import { FaFacebook, FaInstagram } from 'react-icons/fa';
+import { FaFacebook, FaInstagram, FaWhatsapp } from 'react-icons/fa';
 
 export const Footer = () => (
   <footer className="bg-gray-fourth">
@@ -16,6 +16,14 @@ export const Footer = () => (
                 className="link-blue-first text-decoration-none"
               >
                 <FaInstagram size={24} />
+              </a>
+              <a
+                href="//api.whatsapp.com/send?phone=5584994207332&text=Ol%C3%A1%2C%20gostaria%20de%20entrar%20em%20contato%20com%20o%20atendimento!"
+                target="_blank"
+                rel="noreferrer"
+                className="link-blue-first text-decoration-none"
+              >
+                <FaWhatsapp size={24} />
               </a>
             </div>
           </div>
