@@ -1,6 +1,8 @@
 import { usePage } from '@inertiajs/inertia-react';
 import { useEffect, useMemo, useState } from 'react';
+
 import { AuthLayout } from '../layout/Auth';
+import { Title } from '../components/auth/Title';
 
 export default function Clients() {
   const [clients, setClients] = useState([]);
@@ -32,12 +34,14 @@ export default function Clients() {
 
   return (
     <AuthLayout>
-      <div className="container g-0">
+      <div className="container">
         <div className="row gapy-4">
           <div className="col-12">
-            <h1 className="text-blue-first fw-bold fz-24 mb-2">Clientes</h1>
+            <div className="mb-2">
+              <Title label="Clientes" />
+            </div>
           </div>
-          <div className="col-5">
+          <div className="col-md-7 col-lg-5">
             <div>
               <input
                 type="email"
@@ -50,26 +54,24 @@ export default function Clients() {
             </div>
           </div>
           <div className="col-12">
-            <table className="table table-striped">
-              <thead>
-                <tr className="table-awe">
-                  <th scope="col">Nome</th>
-                  <th scope="col">Telefone</th>
-                  <th scope="col">E-mail</th>
-                </tr>
-              </thead>
-              <tbody className="border-top-0">
+            <div className="table-clients table-custom">
+              <div className="head">
+                <span className="column">Nome</span>
+                <span className="column">Telefone</span>
+                <span className="column">E-mail</span>
+              </div>
+              <div className="body">
                 {clientsFiltered.map(
                   ({ id, name, phone_number: phoneNumber, email }) => (
-                    <tr key={id}>
-                      <td>{name}</td>
-                      <td>{phoneNumber}</td>
-                      <td>{email}</td>
-                    </tr>
+                    <div className="item" key={id}>
+                      <span className="column">{name}</span>
+                      <span className="column">{phoneNumber}</span>
+                      <span className="column">{email}</span>
+                    </div>
                   )
                 )}
-              </tbody>
-            </table>
+              </div>
+            </div>
           </div>
         </div>
       </div>

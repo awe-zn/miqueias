@@ -16,6 +16,7 @@ mix
   .react()
   .sass('resources/sass/app.scss', 'public/css')
   .postCss('resources/css/app.css', 'public/css')
+  .sourceMaps(false, 'source-map')
   .webpackConfig(require('./webpack.config'))
   .browserSync({
     proxy: 'app.test',

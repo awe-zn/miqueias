@@ -1,0 +1,53 @@
+@mixin active-link {
+  border-color: $blue-first;
+
+  color: $black-first;
+}
+@mixin common-link {
+  border-color: $gray-fourth;
+
+  color: $gray-second;
+}
+
+.nav.tab-profile {
+  border-bottom: none;
+
+  &:hover {
+    .nav-link.active:not(:hover) {
+      @include common-link;
+    }
+  }
+
+  .nav-link {
+    @include common-link;
+
+    margin-bottom: 0;
+    border-width: 0 0 4px 0;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 0;
+
+    outline: none;
+
+    font-weight: 500;
+
+    &.active,
+    &:hover {
+      @include active-link;
+    }
+  }
+
+  @include media-breakpoint-up(md) {
+    width: fit-content;
+  }
+  @include media-breakpoint-down(md) {
+    flex-direction: column;
+
+    .nav-link {
+      width: 100%;
+      border-width: 0 0 0 4px;
+
+      text-align: left;
+    }
+  }
+}

@@ -45,6 +45,7 @@
 
         transform: translateY(-50%);
         background-color: rgba($brand-third, 0.66);
+        outline: none;
 
         color: white;
 
@@ -91,10 +92,15 @@
           }
         }
       }
+
+      .content {
+        @extend .p-5;
+      }
     }
 
     .content {
-      @extend .p-5;
+      @extend .px-awe-20;
+      @extend .py-awe-32;
     }
   }
 }

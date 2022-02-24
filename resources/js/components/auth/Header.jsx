@@ -27,7 +27,7 @@ export const Header = () => {
           <div className="col-8 col-md-auto ms-auto">
             <div className="d-flex justify-content-end">
               <Dropdown align="end">
-                <Dropdown.Toggle className="dropdown-fit">
+                <Dropdown.Toggle className="dropdown-fit mx-n1 px-1">
                   <div className="d-flex align-items-center gapx-3">
                     <img
                       src={imageHelper({ appEnvironment, path: user })}
@@ -43,7 +43,7 @@ export const Header = () => {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                  <Link href={route('profile')} className="dropdown-item">
+                  <Link href={route('profile.index')} className="dropdown-item">
                     Meu perfil
                   </Link>
                   <Link

@@ -37,25 +37,25 @@ export const Header = () => {
               <div className="d-flex flex-column flex-md-row gapy-3 gapx-awe-64 align-items-md-center mt-awe-32 mt-md-0">
                 <Link
                   href={route('about')}
-                  className="link-blue-first text-decoration-none fw-semibold"
+                  className="link-blue-first text-decoration-none fw-semibold text-truncate"
                 >
                   Sobre
                 </Link>
                 <Link
                   href={route('action')}
-                  className="link-blue-first text-decoration-none fw-semibold"
+                  className="link-blue-first text-decoration-none fw-semibold text-truncate"
                 >
                   Como iniciar uma ação?
                 </Link>
                 <Link
                   href={`${route('homesite')}/#question`}
-                  className="link-blue-first text-decoration-none fw-semibold"
+                  className="link-blue-first text-decoration-none fw-semibold text-truncate"
                 >
                   Perguntas frequentes
                 </Link>
                 <Link
-                  href={route('login')}
-                  className="btn btn-outline-blue-first fw-bold border-2"
+                  href={user ? route('home') : route('login')}
+                  className="btn btn-outline-blue-first fw-bold border-2 text-truncate"
                 >
                   {user ? 'Acessar sistema' : 'Login'}
                 </Link>

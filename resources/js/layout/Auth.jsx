@@ -13,5 +13,8 @@ export const AuthLayout = ({ children }) => (
   </div>
 );
 AuthLayout.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.element),
+    PropTypes.element,
+  ]).isRequired,
 };

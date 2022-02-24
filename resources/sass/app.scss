@@ -15,6 +15,9 @@
 .transition {
   transition: 0.3s all !important;
 }
+.form-label {
+  width: 100%;
+}
 
 .hamburguer {
   border: 0;
@@ -148,38 +151,6 @@ textarea {
   border: none !important;
 }
 
-.sector-select {
-  width: 100%;
-  border: 1px solid transparent;
-  border-radius: 8px;
-  padding: 24px 16px 0;
-  min-height: 162px;
-  max-height: 162px;
-  row-gap: 16px;
-
-  background: white;
-  transition: 0.3s all;
-  user-select: none;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  color: $blue-first;
-
-  img {
-    @extend .img-fluid;
-
-    pointer-events: none;
-  }
-
-  &:hover,
-  &.active {
-    background: #3e89b11a;
-    border-color: $brand-first;
-  }
-}
-
 .border-dashed {
   border-style: dashed !important;
 }
@@ -261,5 +232,46 @@ textarea {
       border-top-right-radius: var(--border-radius);
       border-bottom-right-radius: var(--border-radius);
     }
+  }
+}
+
+.dropdown-toggle {
+  &::after {
+    content: none;
+  }
+}
+
+.dropdown-calendar {
+  min-width: 20rem;
+}
+
+.img-user {
+  width: 58px;
+  height: 58px;
+}
+
+.form-check.calendar {
+  display: flex;
+  column-gap: 8px;
+  align-items: center;
+
+  .form-check-input {
+    margin-top: 0;
+    width: 24px;
+    height: 24px;
+  }
+  .form-check-label {
+    color: #4f4f4f;
+  }
+}
+
+.form-search {
+  min-width: 300px;
+}
+
+.form-control[type='number'] {
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    appearance: none;
   }
 }

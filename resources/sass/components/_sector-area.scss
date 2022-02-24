@@ -1,0 +1,51 @@
+@mixin sector-area-common {
+  background: white;
+
+  border-color: transparent;
+}
+@mixin sector-area-active {
+  background: #3e89b11a;
+
+  border-color: $brand-first;
+}
+
+.sector-area {
+  &:hover {
+    .sector-select.active:not(:hover) {
+      @include sector-area-common;
+    }
+  }
+
+  .sector-select {
+    width: 100%;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 8px;
+    padding: 24px 16px 0;
+    min-height: 162px;
+    max-height: 162px;
+
+    transition: 0.3s all;
+    user-select: none;
+
+    display: flex;
+    row-gap: 16px;
+    flex-direction: column;
+    align-items: center;
+
+    color: $blue-first;
+
+    @include sector-area-common;
+
+    img {
+      @extend .img-fluid;
+
+      pointer-events: none;
+    }
+
+    &:hover,
+    &.active {
+      @include sector-area-active;
+    }
+  }
+}

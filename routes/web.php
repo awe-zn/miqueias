@@ -1,15 +1,16 @@
 <?php
 
+use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\CaseContactController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\CountyController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProcessController;
-use App\Mail\CaseContact;
-use App\Mail\CaseUser;
-use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 Route::inertia('/', 'Home')->name('homesite');
 Route::inertia('/about', 'About')->name('about');
@@ -24,10 +25,31 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
   Route::inertia('/dashboard', 'Dashboard')->name('home');
-  Route::inertia('/profile', 'Profile')->name('profile');
+  Route::prefix('/profile')->name('profile.')->group(function () {
+    Route::get('/', [ProfileController::class, 'index'])->name('index');
+    Route::put('/identification', [ProfileController::class, 'update_identification'])->name('identification');
+    Route::put('/office', [ProfileController::class, 'update_office'])->name('office');
+  });
   Route::prefix('/process')->name('process.')->group(function () {
     Route::get('/', [ProcessController::class, 'index'])->name('index');
     Route::get('/create', [ProcessController::class, 'create'])->name('create');
+    Route::post('/', [ProcessController::class, 'store'])->name('store');
+    Route::get('/{id}', [ProcessController::class, 'show'])->name('show');
+    Route::put('/{id}', [ProcessController::class, 'update'])->name('update');
+    Route::get('/edit/{id}', [ProcessController::class, 'edit'])->name('edit');
+  });
+  Route::prefix('/task')->name('task.')->group(function () {
+    Route::post('/', [TaskController::class, 'store'])->name('store');
+  });
+  Route::prefix('/event')->name('event.')->group(function () {
+    Route::post('/', [EventController::class, 'store'])->name('store');
+  });
+  Route::prefix('/calendar')->name('calendar.')->group(function () {
+    Route::get('/', [CalendarController::class, 'index'])->name('index');
   });
   Route::get('/clients', [ClientController::class, 'index'])->name('client.index');
+});
+
+Route::prefix('/county')->name('county.')->group(function () {
+  Route::get('/{id}', [CountyController::class, 'show'])->name('show');
 });

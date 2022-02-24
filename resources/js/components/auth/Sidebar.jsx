@@ -12,7 +12,7 @@ import { Link, usePage } from '@inertiajs/inertia-react';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
 
 export const Sidebar = () => {
-  const [isVisiable, setIsVisiable] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   const {
     user: { role },
@@ -21,14 +21,14 @@ export const Sidebar = () => {
   const isPortable = useMediaQuery('(max-width: 1200px)');
 
   useEffect(() => {
-    if (isPortable) return setIsVisiable(false);
-    return setIsVisiable(true);
+    if (isPortable) return setIsVisible(false);
+    return setIsVisible(true);
   }, [isPortable]);
 
   return (
     <nav
       className={`sidebar ${isPortable ? 'shadow' : ''} ${
-        !isVisiable ? 'hide' : ''
+        !isVisible ? 'hide' : ''
       }`.trim()}
     >
       <div className="content">
@@ -36,7 +36,7 @@ export const Sidebar = () => {
           <li>
             <Link
               href={route('home')}
-              className={route().current('home') ? 'active' : ''}
+              className={route().current('home') ? 'active' : undefined}
             >
               <FaTasks size={24} />
               <span className="label">Área de trabalho</span>
@@ -45,7 +45,14 @@ export const Sidebar = () => {
           {role === 'advocate' && (
             <>
               <li>
-                <Link>
+                <Link
+                  href={route('calendar.index')}
+                  className={
+                    route().current().startsWith('calendar')
+                      ? 'active'
+                      : undefined
+                  }
+                >
                   <BiCalendarCheck size={24} />
                   <span className="label">Agenda</span>
                 </Link>
@@ -54,7 +61,9 @@ export const Sidebar = () => {
                 <Link
                   href={route('client.index')}
                   className={
-                    route().current().startsWith('client') ? 'active' : ''
+                    route().current().startsWith('client')
+                      ? 'active'
+                      : undefined
                   }
                 >
                   <FaRegAddressCard size={24} />
@@ -73,7 +82,7 @@ export const Sidebar = () => {
             <Link
               href={route('process.index')}
               className={
-                route().current().startsWith('process') ? 'active' : ''
+                route().current().startsWith('process') ? 'active' : undefined
               }
             >
               <FaRegFolder size={24} />
@@ -82,8 +91,10 @@ export const Sidebar = () => {
           </li>
           <li>
             <Link
-              href={route('profile')}
-              className={route().current('profile') ? 'active' : ''}
+              href={route('profile.index')}
+              className={
+                route().current().startsWith('profile') ? 'active' : undefined
+              }
             >
               <FaRegUser size={24} />
               <span className="label">Meu perfil</span>
@@ -96,9 +107,9 @@ export const Sidebar = () => {
         <button
           type="button"
           className="sidebar-toggle"
-          onClick={() => setIsVisiable(!isVisiable)}
+          onClick={() => setIsVisible(!isVisible)}
         >
-          {!isVisiable ? (
+          {!isVisible ? (
             <BiChevronRight size={24} />
           ) : (
             <BiChevronLeft size={24} />

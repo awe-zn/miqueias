@@ -13,21 +13,26 @@ class Process extends Model
 
   public function legal_instance()
   {
-    return $this->hasOne(LegalInstance::class, 'legal_instance_id', 'id');
+    return $this->hasOne(LegalInstance::class, 'id', 'legal_instance_id');
   }
 
   public function legal_court()
   {
-    return $this->hasOne(LegalCourt::class, 'legal_court_id', 'id');
+    return $this->hasOne(LegalCourt::class, 'id', 'legal_court_id');
   }
 
   public function legal_forum()
   {
-    return $this->hasOne(LegalForum::class, 'legal_forum_id', 'id');
+    return $this->hasOne(LegalForum::class, 'id', 'legal_forum_id');
   }
 
   public function office()
   {
-    return $this->belongsTo(Office::class, 'office_id', 'id');
+    return $this->belongsTo(Office::class, 'id', 'office_id');
+  }
+
+  public function clients()
+  {
+    return $this->hasManyThrough(User::class, ClientProcess::class, 'process_id', 'id', 'id', 'client_id');
   }
 }

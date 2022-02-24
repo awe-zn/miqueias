@@ -1,0 +1,129 @@
+@mixin table-layout {
+  display: grid;
+  column-gap: 16px;
+  align-items: center;
+
+  padding: 20px 24px;
+
+  .column {
+    @extend .text-truncate;
+  }
+}
+.table-custom {
+  .head {
+    @include table-layout;
+
+    border-radius: 4px;
+
+    background: $blue-first;
+
+    color: white;
+    font-weight: bold;
+  }
+
+  .body {
+    .item {
+      @include table-layout;
+
+      color: $gray-first;
+
+      &:nth-child(even) {
+        background-color: rgba($gray-fourth, 0.4);
+      }
+    }
+  }
+}
+
+@mixin calendar-row-layout {
+  grid-template-columns: 20fr 17fr 53fr;
+}
+.table-calendar {
+  .head {
+    @include calendar-row-layout;
+  }
+  .body {
+    @include media-breakpoint-up(md) {
+      height: 325px;
+    }
+
+    .item {
+      @include calendar-row-layout;
+
+      .column-badge {
+        display: flex;
+      }
+
+      .badge-calendar {
+        @extend .text-truncate;
+
+        font-size: 14px;
+        color: white;
+
+        padding: 2px 8px;
+        border-radius: 24px;
+
+        display: inline-block;
+
+        &.event {
+          background-color: $brand-second;
+        }
+        &.task {
+          background-color: $blue-first;
+        }
+      }
+    }
+  }
+}
+
+@mixin clients-row-layout {
+  grid-template-columns: 34.5fr 28.5fr 29.5fr;
+}
+.table-clients {
+  .head {
+    @include clients-row-layout;
+  }
+  .body {
+    .item {
+      @include clients-row-layout;
+    }
+  }
+}
+
+@mixin process-row-layout {
+  grid-template-columns: 15.5fr 20.5fr 26fr 16fr 12.5fr;
+}
+.table-process {
+  .head {
+    @include process-row-layout;
+  }
+  .body {
+    .item {
+      @include process-row-layout;
+
+      text-decoration: none;
+
+      .column-badge {
+        display: flex;
+      }
+
+      .badge-calendar {
+        @extend .text-truncate;
+
+        font-size: 14px;
+        color: white;
+
+        padding: 2px 8px;
+        border-radius: 24px;
+
+        display: inline-block;
+
+        &.in-progress {
+          background-color: $brand-second;
+        }
+        &.finished {
+          background-color: #27ae60;
+        }
+      }
+    }
+  }
+}
