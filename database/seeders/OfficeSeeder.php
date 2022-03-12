@@ -3,17 +3,20 @@
 namespace Database\Seeders;
 
 use App\Models\Office;
+use Faker\Factory;
 use Illuminate\Database\Seeder;
 
 class OfficeSeeder extends Seeder
 {
   public function run()
   {
+    $faker = Factory::create();
+
     $offices = array([
       "name" => 'Miqueias Costa',
       "email" => 'miqueiascostaadv@gmail.com',
-      "identification_document" => '42.620.348/0001-21',
-      "ccm" => $this->faker->bothify('######'),
+      "identification_document" => '42620348000121',
+      "ccm" => $faker->bothify('######'),
       "oab" => '18.861',
       "state_oab" => 11,
     ]);

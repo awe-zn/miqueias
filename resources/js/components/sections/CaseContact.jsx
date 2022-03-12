@@ -32,6 +32,10 @@ import creditRecovery from '../../../images/cases-contacts/creditRecovery.png';
 import business from '../../../images/cases-contacts/business.png';
 import agribusiness from '../../../images/cases-contacts/agribusiness.png';
 import criminal from '../../../images/cases-contacts/criminal.png';
+import banker from '../../../images/cases-contacts/banker.png';
+import contracts from '../../../images/cases-contacts/contracts.png';
+import ecological from '../../../images/cases-contacts/ecological.png';
+import sportive from '../../../images/cases-contacts/sportive.png';
 
 import checked from '../../../images/icons/checked.svg';
 
@@ -60,6 +64,10 @@ const sectors = [
   { title: 'Empresarial', icon: business },
   { title: 'Agronegócio', icon: agribusiness },
   { title: 'Penal', icon: criminal },
+  { title: 'Ambiental', icon: ecological },
+  { title: 'Desportivo', icon: sportive },
+  { title: 'Bancário', icon: banker },
+  { title: 'Licitação e contratos', icon: contracts },
 ];
 
 const maxSectors = 5;
