@@ -43,9 +43,13 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
   });
   Route::prefix('/task')->name('task.')->group(function () {
     Route::post('/', [TaskController::class, 'store'])->name('store');
+    Route::put('/{id}', [TaskController::class, 'update'])->name('update');
+    Route::delete('/{id}', [TaskController::class, 'destroy'])->name('delete');
   });
   Route::prefix('/event')->name('event.')->group(function () {
     Route::post('/', [EventController::class, 'store'])->name('store');
+    Route::put('/{id}', [EventController::class, 'update'])->name('update');
+    Route::delete('/{id}', [EventController::class, 'destroy'])->name('delete');
   });
   Route::prefix('/calendar')->name('calendar.')->group(function () {
     Route::get('/', [CalendarController::class, 'index'])->name('index');

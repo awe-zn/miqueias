@@ -41,7 +41,7 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_DATABASE}
       SERVICE_NAME: postgres
-      SERVICE_TAGS: dev
+      TZ: 'America/Sao_Paulo'
     networks:
       - portal-network
 

@@ -49,6 +49,14 @@
     .item {
       @include calendar-row-layout;
 
+      text-decoration: none;
+      text-align: left;
+
+      width: 100%;
+      border: none;
+
+      background: none;
+
       .column-badge {
         display: flex;
       }

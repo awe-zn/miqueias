@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreEventRequest;
 use App\Models\Event;
 use Illuminate\Http\Request;
 
@@ -33,15 +34,17 @@ class EventController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
-  public function store(Request $request)
+  public function store(StoreEventRequest $request)
   {
+    $validated = (object) $request->validated();
+
     $event = new Event;
 
-    $event->title = $request->title;
-    $event->description = $request->description;
-    $event->process_id = $request->processId;
-    $event->starts_in = $request->startsIn;
-    $event->ends_at = $request->endsAt;
+    $event->title = $validated->title;
+    $event->description = $validated->description;
+    $event->process_id = $validated->processId;
+    $event->starts_in = $validated->startsIn;
+    $event->ends_at = $validated->endsAt;
 
     $event->save();
 
@@ -77,9 +80,23 @@ class EventController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function update(Request $request, $id)
+  public function update(StoreEventRequest $request, $id)
   {
-    //
+    $event = Event::find($id);
+
+    if (!$event) return redirect()->route('home');
+
+    $validated = (object) $request->validated();
+
+    $event->title = $validated->title;
+    $event->description = $validated->description;
+    $event->process_id = $validated->processId;
+    $event->starts_in = $validated->startsIn;
+    $event->ends_at = $validated->endsAt;
+
+    $event->save();
+
+    return redirect()->route('calendar.index');
   }
 
   /**
@@ -90,6 +107,12 @@ class EventController extends Controller
    */
   public function destroy($id)
   {
-    //
+    $event = Event::find($id);
+
+    if (!$event) return redirect()->route('home');
+
+    $event->delete();
+
+    return redirect()->route('calendar.index');
   }
 }

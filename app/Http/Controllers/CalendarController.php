@@ -22,8 +22,8 @@ class CalendarController extends Controller
     $process = Process::where(['office_id' => Auth::user()->office_id])->get();
     $task_priority = TaskPriority::all();
 
-    $tasks = Task::all();
-    $events = Event::all();
+    $tasks = Task::with(['process', 'task_priority'])->get();
+    $events = Event::with('process')->get();
 
     return Inertia::render('Calendar', [
       'process' => $process,

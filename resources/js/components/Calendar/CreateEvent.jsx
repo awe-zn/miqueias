@@ -15,14 +15,31 @@ export default function CreateEvent({
 
   const [wasTried, setWasTried] = useState(false);
 
-  const { data, setData, post, errors, processing, reset, wasSuccessful } =
-    useForm({
-      title: '',
-      description: '',
-      processId: '',
-      startsIn: '',
-      endsAt: '',
-    });
+  const {
+    data,
+    setData,
+    post,
+    errors,
+    processing,
+    reset,
+    wasSuccessful,
+    clearErrors,
+  } = useForm({
+    title: '',
+    description: '',
+    processId: '',
+    startsIn: '',
+    endsAt: '',
+  });
+
+  useEffect(() => {
+    setTimeout(() => {
+      setShowModalCreateEvent(false);
+      setWasTried(false);
+      reset();
+      clearErrors();
+    }, 250);
+  }, [wasSuccessful]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -33,13 +50,6 @@ export default function CreateEvent({
 
     if (!wasTried) setWasTried(true);
   };
-
-  useEffect(() => {
-    if (wasSuccessful === true) {
-      setShowModalCreateEvent(false);
-      reset();
-    }
-  }, [wasSuccessful]);
 
   const handleSetData = (key, newValue) => {
     setData(key, newValue);
@@ -53,7 +63,7 @@ export default function CreateEvent({
       <Modal.Body className="p-awe-32">
         <form onSubmit={handleSubmit}>
           <div className="d-flex flex-row gapx-2 align-items-center mb-4">
-            <Title label="Adicionar tarefa" />
+            <Title label="Adicionar evento" />
             <button
               type="button"
               className="border-0 bg-transparent d-flex p-0 ms-auto text-blue-first"
@@ -67,10 +77,10 @@ export default function CreateEvent({
               <Input
                 type="text"
                 name="title"
-                label="Título da tarefa"
+                label="Título da evento"
                 value={data.title}
                 handleSetValue={handleSetData}
-                placeholder="Título da tarefa"
+                placeholder="Título da evento"
                 status={
                   errors.title
                     ? 'is-invalid'
@@ -80,7 +90,7 @@ export default function CreateEvent({
             </div>
             <div>
               <label htmlFor="description" className="form-label">
-                Descrição da tarefa
+                Descrição da evento
               </label>
               <textarea
                 id="description"
@@ -161,7 +171,7 @@ export default function CreateEvent({
             <button
               type="button"
               className="btn btn-outline-blue-first fw-bold px-awe-40 border-2"
-              onClick={() => reset()}
+              onClick={() => setShowModalCreateEvent(false)}
             >
               Cancelar
             </button>

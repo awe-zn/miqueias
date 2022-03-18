@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTaskRequest;
 use App\Models\Task;
 use Illuminate\Http\Request;
 
@@ -33,15 +34,17 @@ class TaskController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
-  public function store(Request $request)
+  public function store(StoreTaskRequest $request)
   {
+    $validated = (object) $request->validated();
+
     $task = new Task;
 
-    $task->title = $request->title;
-    $task->description = $request->description;
-    $task->process_id = $request->processId;
-    $task->schedule_at = $request->date;
-    $task->task_priority_id = $request->priorityId;
+    $task->title = $validated->title;
+    $task->description = $validated->description;
+    $task->process_id = $validated->processId;
+    $task->schedule_at = $validated->date;
+    $task->task_priority_id = $validated->priorityId;
 
     $task->save();
 
@@ -77,9 +80,23 @@ class TaskController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function update(Request $request, $id)
+  public function update(StoreTaskRequest $request, $id)
   {
-    //
+    $task = Task::find($id);
+
+    if (!$task) return redirect()->route('home');
+
+    $validated = (object) $request->validated();
+
+    $task->title = $validated->title;
+    $task->description = $validated->description;
+    $task->process_id = $validated->processId;
+    $task->schedule_at = $validated->date;
+    $task->task_priority_id = $validated->priorityId;
+
+    $task->save();
+
+    return redirect()->route('calendar.index');
   }
 
   /**
@@ -90,6 +107,12 @@ class TaskController extends Controller
    */
   public function destroy($id)
   {
-    //
+    $task = Task::find($id);
+
+    if (!$task) return redirect()->route('home');
+
+    $task->delete();
+
+    return redirect()->route('calendar.index');
   }
 }

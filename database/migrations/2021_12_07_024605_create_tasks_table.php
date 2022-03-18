@@ -17,7 +17,7 @@ class CreateTasksTable extends Migration
       $table->increments('id');
       $table->string('title', 64);
       $table->string('description', 128);
-      $table->dateTimeTz('schedule_at');
+      $table->date('schedule_at');
       $table->integer('process_id')->unsigned();
       $table->foreign('process_id')->references('id')->on('process')->onDelete('CASCADE')->onUpdate('CASCADE');;
       $table->integer('task_priority_id')->unsigned()->nullable();

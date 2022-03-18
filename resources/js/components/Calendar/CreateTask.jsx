@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm, usePage } from '@inertiajs/inertia-react';
 import { Modal } from 'react-bootstrap';
 import { FaTimes } from 'react-icons/fa';
@@ -15,13 +15,31 @@ export default function CreateTask({
 
   const [wasTried, setWasTried] = useState(false);
 
-  const { data, setData, post, errors, processing, reset } = useForm({
+  const {
+    data,
+    setData,
+    post,
+    errors,
+    processing,
+    reset,
+    clearErrors,
+    wasSuccessful,
+  } = useForm({
     title: '',
     description: '',
     processId: '',
     date: '',
     priorityId: '',
   });
+
+  useEffect(() => {
+    setTimeout(() => {
+      setShowModalCreateTask(false);
+      setWasTried(false);
+      reset();
+      clearErrors();
+    }, 250);
+  }, [wasSuccessful]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -31,10 +49,6 @@ export default function CreateTask({
     });
 
     if (!wasTried) setWasTried(true);
-
-    setTimeout(() => {
-      setShowModalCreateTask(false);
-    }, 500);
   };
 
   const handleSetData = (key, newValue) => {
@@ -141,7 +155,7 @@ export default function CreateTask({
               </div>
               <div className="flex-1">
                 <label htmlFor="priorityId" className="form-label">
-                  Processo relacionado
+                  Prioridade
                 </label>
                 <select
                   className={`form-control ${
@@ -175,7 +189,7 @@ export default function CreateTask({
             <button
               type="button"
               className="btn btn-outline-blue-first fw-bold px-awe-40 border-2"
-              onClick={() => reset()}
+              onClick={() => setShowModalCreateTask(false)}
             >
               Cancelar
             </button>

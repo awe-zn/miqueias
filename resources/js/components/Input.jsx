@@ -7,6 +7,7 @@ export const Input = ({
   value,
   handleSetValue,
   placeholder,
+  status,
 }) => {
   const handleChange = ({ target: { value: newValue } }) => {
     handleSetValue(name, newValue);
@@ -21,7 +22,7 @@ export const Input = ({
         type={type}
         id={name}
         name={name}
-        className="form-control"
+        className={`form-control ${status}`.trim()}
         value={value}
         onChange={handleChange}
         placeholder={placeholder}
@@ -37,6 +38,7 @@ Input.propTypes = {
   value: PropTypes.string.isRequired,
   handleSetValue: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
+  status: PropTypes.string.isRequired,
 };
 Input.defaultProps = {
   placeholder: undefined,

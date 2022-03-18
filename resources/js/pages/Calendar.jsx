@@ -6,10 +6,23 @@ import { usePage } from '@inertiajs/inertia-react';
 import { AuthLayout } from '../layout/Auth';
 import { Title } from '../components/auth/Title';
 import CreateTask from '../components/Calendar/CreateTask';
+import EditTask from '../components/Calendar/EditTask';
 import CreateEvent from '../components/Calendar/CreateEvent';
+import ShowEvent from '../components/Calendar/ShowEvent';
+import EditEvent from '../components/Calendar/EditEvent';
+import ShowTask from '../components/Calendar/ShowTask';
 
 export default function Calendar() {
   const { events, tasks } = usePage().props;
+
+  const [showModalCreateTask, setShowModalCreateTask] = useState(false);
+  const [showModalViewTask, setShowModalViewTask] = useState(false);
+  const [showModalEditTask, setShowModalEditTask] = useState(false);
+  const [showModalCreateEvent, setShowModalCreateEvent] = useState(false);
+  const [showModalViewEvent, setShowModalViewEvent] = useState(false);
+  const [showModalEditEvent, setShowModalEditEvent] = useState(false);
+  const [itemFocusData, setItemFocusData] = useState({});
+  const [searchTerm, setSearchTerm] = useState('a');
 
   const calendar = useMemo(() => {
     const tasksFetched = tasks.map((task) => ({ ...task, type: 'task' }));
@@ -18,8 +31,15 @@ export default function Calendar() {
     return [...tasksFetched, ...eventsFetched];
   }, [events, tasks]);
 
-  const [showModalCreateTask, setShowModalCreateTask] = useState(false);
-  const [showModalCreateEvent, setShowModalCreateEvent] = useState(false);
+  const calendarFiltered = useMemo(() => {
+    const dataFiltered = calendar.filter(
+      (item) => item.title.toLowerCase().search(searchTerm.toLowerCase()) >= 0
+    );
+
+    return [...dataFiltered];
+  }, [calendar, searchTerm]);
+
+  console.log(calendarFiltered);
 
   return (
     <AuthLayout>
@@ -97,6 +117,7 @@ export default function Calendar() {
                     className="form-control form-search"
                     type="text"
                     placeholder="Pesquisar evento ou tarefa..."
+                    onChange={({ target: { value } }) => setSearchTerm(value)}
                   />
                 </div>
               </div>
@@ -114,33 +135,73 @@ export default function Calendar() {
                     <span className="column">Compromisso</span>
                   </div>
                   <div className="body">
-                    {calendar.map(({ title, type, id }) => (
-                      <div className="item" key={`${id}-${type}`}>
-                        <span className="column">23/09/2021 - 12h</span>
-                        <span className="column column-badge">
-                          <span className={`badge-calendar ${type}`}>
-                            {type === 'event' ? 'Evento' : 'Tarefa'}
+                    {calendarFiltered.map((item) => {
+                      const { title, type, id } = item;
+
+                      return (
+                        <button
+                          type="button"
+                          className="item"
+                          key={`${id}-${type}`}
+                          onClick={() => {
+                            if (type === 'event') {
+                              setShowModalViewEvent(true);
+                            } else {
+                              setShowModalViewTask(true);
+                            }
+                            setItemFocusData(item);
+                          }}
+                        >
+                          <span className="column">
+                            {type === 'event' ? '' : ''}
                           </span>
-                        </span>
-                        <span className="column">{title}</span>
-                      </div>
-                    ))}
+                          <span className="column column-badge">
+                            <span className={`badge-calendar ${type}`}>
+                              {type === 'event' ? 'Evento' : 'Tarefa'}
+                            </span>
+                          </span>
+                          <span className="column">{title}</span>
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </section>
-      </main>
 
-      <CreateTask
-        showModalCreateTask={showModalCreateTask}
-        setShowModalCreateTask={setShowModalCreateTask}
-      />
-      <CreateEvent
-        showModalCreateEvent={showModalCreateEvent}
-        setShowModalCreateEvent={setShowModalCreateEvent}
-      />
+        <CreateTask
+          showModalCreateTask={showModalCreateTask}
+          setShowModalCreateTask={setShowModalCreateTask}
+        />
+        <ShowTask
+          showModalViewTask={showModalViewTask}
+          setShowModalViewTask={setShowModalViewTask}
+          itemFocusData={itemFocusData}
+          openEditTask={() => setShowModalEditTask(true)}
+        />
+        <EditTask
+          showModalEditTask={showModalEditTask}
+          setShowModalEditTask={setShowModalEditTask}
+          itemFocusData={itemFocusData}
+        />
+        <CreateEvent
+          showModalCreateEvent={showModalCreateEvent}
+          setShowModalCreateEvent={setShowModalCreateEvent}
+        />
+        <ShowEvent
+          showModalViewEvent={showModalViewEvent}
+          setShowModalViewEvent={setShowModalViewEvent}
+          itemFocusData={itemFocusData}
+          openEditEvent={() => setShowModalEditEvent(true)}
+        />
+        <EditEvent
+          showModalEditEvent={showModalEditEvent}
+          setShowModalEditEvent={setShowModalEditEvent}
+          itemFocusData={itemFocusData}
+        />
+      </main>
     </AuthLayout>
   );
 }
