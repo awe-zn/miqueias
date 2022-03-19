@@ -3,7 +3,7 @@ import { useForm, usePage } from '@inertiajs/inertia-react';
 import { Modal } from 'react-bootstrap';
 import { FaTimes } from 'react-icons/fa';
 import PropTypes from 'prop-types';
-import { subHours, formatISO } from 'date-fns';
+import { formatISO } from 'date-fns';
 
 import { Title } from '../auth/Title';
 import { Input } from '../Input';
@@ -56,10 +56,12 @@ export default function EditEvent({
 
   useEffect(() => {
     setTimeout(() => {
-      setShowModalEditEvent(false);
-      setWasTried(false);
-      reset();
-      clearErrors();
+      if (wasSuccessful) {
+        setShowModalEditEvent(false);
+        setWasTried(false);
+        reset();
+        clearErrors();
+      }
     }, 250);
   }, [wasSuccessful]);
 

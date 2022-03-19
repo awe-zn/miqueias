@@ -21,7 +21,6 @@ Route::inertia('/privacy', 'Privacy')->name('privacy');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact');
 Route::post('/case/contact', [CaseContactController::class, 'store'])->name('case.contact');
 
-
 Route::middleware('guest')->group(function () {
   Route::get('/login', [LoginController::class, 'create'])->name('login');
 });

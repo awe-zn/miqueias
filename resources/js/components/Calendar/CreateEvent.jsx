@@ -34,12 +34,22 @@ export default function CreateEvent({
 
   useEffect(() => {
     setTimeout(() => {
-      setShowModalCreateEvent(false);
-      setWasTried(false);
-      reset();
-      clearErrors();
+      if (!wasSuccessful) {
+        setShowModalCreateEvent(false);
+        setWasTried(false);
+        reset();
+        clearErrors();
+      }
     }, 250);
   }, [wasSuccessful]);
+
+  useEffect(() => {
+    if (!showModalCreateEvent) {
+      reset();
+      setWasTried(false);
+      clearErrors();
+    }
+  }, [showModalCreateEvent]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

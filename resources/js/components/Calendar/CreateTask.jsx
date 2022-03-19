@@ -34,12 +34,22 @@ export default function CreateTask({
 
   useEffect(() => {
     setTimeout(() => {
-      setShowModalCreateTask(false);
-      setWasTried(false);
-      reset();
-      clearErrors();
+      if (wasSuccessful) {
+        setShowModalCreateTask(false);
+        setWasTried(false);
+        reset();
+        clearErrors();
+      }
     }, 250);
   }, [wasSuccessful]);
+
+  useEffect(() => {
+    if (!showModalCreateTask) {
+      reset();
+      setWasTried(false);
+      clearErrors();
+    }
+  }, [showModalCreateTask]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

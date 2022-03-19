@@ -38,6 +38,7 @@ import ecological from '../../../images/cases-contacts/ecological.png';
 import sportive from '../../../images/cases-contacts/sportive.png';
 
 import checked from '../../../images/icons/checked.svg';
+import { useMediaQuery } from '../../hooks/useMediaQuery';
 
 const sectors = [
   { title: 'Aéreo', icon: plane },
@@ -80,6 +81,8 @@ export const CaseContact = () => {
   const [dragging, setDragging] = useState(false);
   const [firstAccess, setFirstAccess] = useState(true);
 
+  const isMobile = useMediaQuery('(max-width: 992px)');
+
   const { setData, data, post, processing, wasSuccessful, reset } = useForm({
     sector: '',
     typeEntityCase: '',
@@ -110,12 +113,21 @@ export const CaseContact = () => {
     },
   });
 
+  const handleNextStep = () => setCurrentStage(currentStage + 1);
+
   useEffect(() => {
     setFirstAccess(false);
   }, []);
 
   useEffect(() => {
-    if (sectorIndex !== null) setData('sector', sectors[sectorIndex].title);
+    if (sectorIndex !== null) {
+      setData('sector', sectors[sectorIndex].title);
+
+      if (isMobile) {
+        sectionEl.current.scrollIntoView();
+        setTimeout(handleNextStep, 300);
+      }
+    }
   }, [sectorIndex]);
 
   useEffect(() => {
@@ -127,8 +139,6 @@ export const CaseContact = () => {
 
     if (!firstAccess) sectionEl.current.scrollIntoView();
   }, [currentStage]);
-
-  const handleNextStep = () => setCurrentStage(currentStage + 1);
 
   useEffect(() => {
     if (wasSuccessful) {

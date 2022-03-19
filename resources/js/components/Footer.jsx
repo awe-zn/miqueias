@@ -6,7 +6,22 @@ export const Footer = () => (
       <div className="row justify-content-center">
         <div className="col-md-11 col-lg-10">
           <div className="d-flex flex-row justify-content-between flex-wrap gapx-awe-32 gapy-3 align-items-center fz-14 text-blue-first">
-            <span>Miquéias Costa - 2021</span>
+            <span>
+              Miquéias Costa - 2021{' '}
+              <a
+                href={route('terms')}
+                className="link-brand-first text-decoration-none transition"
+              >
+                Termos
+              </a>{' '}
+              e{' '}
+              <a
+                href={route('privacy')}
+                className="link-brand-first text-decoration-none transition"
+              >
+                Políticas de Privacidade
+              </a>
+            </span>
             <div className="d-flex flex-row gapx-4 ms-auto">
               <FaFacebook size={24} />
               <a

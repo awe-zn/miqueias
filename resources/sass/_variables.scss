@@ -106,3 +106,12 @@ $flexs: ();
 @for $index from 1 through 10 {
   $flexs: map-merge(($index: $index), $flexs);
 }
+
+$pagination-border-color:         $gray-second;
+$pagination-color:                $pagination-border-color;
+$pagination-active-bg:            $blue-first;
+$pagination-focus-color:          $brand-third;
+$pagination-focus-border-color:   $pagination-focus-color;
+$pagination-hover-bg:             transparent;
+$pagination-hover-border-color:   $pagination-active-bg;
+$pagination-hover-color:          $pagination-active-bg;

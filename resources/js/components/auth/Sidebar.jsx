@@ -35,6 +35,7 @@ export const Sidebar = () => {
         <ul className="links-list">
           <li>
             <Link
+              tabIndex={0}
               href={route('home')}
               className={route().current('home') ? 'active' : undefined}
             >
@@ -46,6 +47,7 @@ export const Sidebar = () => {
             <>
               <li>
                 <Link
+                  tabIndex={0}
                   href={route('calendar.index')}
                   className={
                     route().current().startsWith('calendar')
@@ -59,6 +61,7 @@ export const Sidebar = () => {
               </li>
               <li>
                 <Link
+                  tabIndex={0}
                   href={route('client.index')}
                   className={
                     route().current().startsWith('client')
@@ -73,13 +76,14 @@ export const Sidebar = () => {
             </>
           )}
           <li>
-            <Link>
+            <Link tabIndex={0}>
               <FaRegComment size={24} />
               <span className="label">Atendimentos</span>
             </Link>
           </li>
           <li>
             <Link
+              tabIndex={0}
               href={route('process.index')}
               className={
                 route().current().startsWith('process') ? 'active' : undefined
@@ -91,6 +95,7 @@ export const Sidebar = () => {
           </li>
           <li>
             <Link
+              tabIndex={0}
               href={route('profile.index')}
               className={
                 route().current().startsWith('profile') ? 'active' : undefined

@@ -55,10 +55,12 @@ export default function EditTask({
 
   useEffect(() => {
     setTimeout(() => {
-      setShowModalEditTask(false);
-      setWasTried(false);
-      reset();
-      clearErrors();
+      if (!wasSuccessful) {
+        setShowModalEditTask(false);
+        setWasTried(false);
+        reset();
+        clearErrors();
+      }
     }, 250);
   }, [wasSuccessful]);
 
