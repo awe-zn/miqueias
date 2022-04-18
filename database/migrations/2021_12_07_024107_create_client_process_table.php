@@ -14,6 +14,7 @@ class CreateClientProcessTable extends Migration
   public function up()
   {
     Schema::create('client_process', function (Blueprint $table) {
+      $table->id();
       $table->integer('process_id')->unsigned();
       $table->integer('client_id')->unsigned();
       $table->foreign('process_id')->references('id')->on('process')->onDelete('CASCADE')->onUpdate('CASCADE');

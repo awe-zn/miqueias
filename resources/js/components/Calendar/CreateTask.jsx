@@ -33,14 +33,14 @@ export default function CreateTask({
   });
 
   useEffect(() => {
-    setTimeout(() => {
-      if (wasSuccessful) {
+    if (wasSuccessful) {
+      setTimeout(() => {
         setShowModalCreateTask(false);
         setWasTried(false);
         reset();
         clearErrors();
-      }
-    }, 250);
+      }, 250);
+    }
   }, [wasSuccessful]);
 
   useEffect(() => {

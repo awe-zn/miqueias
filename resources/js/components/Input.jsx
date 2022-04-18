@@ -32,8 +32,14 @@ export const Input = ({
 };
 Input.propTypes = {
   name: PropTypes.string.isRequired,
-  type: PropTypes.oneOf(['number', 'text', 'email', 'date', 'datetime-local'])
-    .isRequired,
+  type: PropTypes.oneOf([
+    'number',
+    'text',
+    'email',
+    'date',
+    'datetime-local',
+    'password',
+  ]).isRequired,
   label: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   handleSetValue: PropTypes.func.isRequired,

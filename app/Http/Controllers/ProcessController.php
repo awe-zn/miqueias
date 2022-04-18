@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreProcessRequest;
 use App\Models\ClientProcess;
 use App\Models\LegalCourt;
 use App\Models\LegalForum;
 use App\Models\LegalInstance;
 use App\Models\Process;
+use App\Models\ProcessFile;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
+use Illuminate\Support\Str;
 
 class ProcessController extends Controller
 {
@@ -55,32 +59,36 @@ class ProcessController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
-  public function store(Request $request)
+  public function store(StoreProcessRequest $request)
   {
-    $process = new Process;
-    $client_process = new ClientProcess;
+    $validated = (object) $request->validated();
 
-    $process->title = $request->title;
-    $process->code = $request->code;
-    $process->legal_instance_id = $request->legalInstanceId;
-    $process->judgment = $request->judgment;
-    $process->legal_court_id = $request->legalCourtId;
-    $process->legal_forum_id = $request->legalForumId;
-    $process->action = $request->action;
-    $process->link = $request->link;
-    $process->description = $request->description;
-    $process->fee_cause = $request->feeCause;
-    $process->fee_condemnation = $request->feeCondemnation;
-    $process->fee_amount = $request->feeAmount;
-    $process->distributed_in = $request->distributedIn;
-    $process->observation_description = $request->observationDescription;
-    $process->public = $request->public;
+    $process = new Process;
+
+    $process->title = $validated->title;
+    $process->code = $validated->code;
+    $process->legal_instance_id = $validated->legalInstanceId;
+    $process->judgment = $validated->judgment;
+    $process->legal_court_id = $validated->legalCourtId;
+    $process->legal_forum_id = $validated->legalForumId;
+    $process->action = $validated->action;
+    $process->link = $validated->link;
+    $process->description = $validated->description;
+    $process->fee_cause = $validated->feeCause;
+    $process->fee_condemnation = $validated->feeCondemnation;
+    $process->fee_amount = $validated->feeAmount;
+    $process->distributed_in = $validated->distributedIn;
+    $process->observation_description = $validated->observationDescription;
+    $process->public = $validated->public;
     $process->office_id = Auth::user()->office_id;
     $process->save();
 
-    $client_process->process_id = $process->id;
-    $client_process->client_id = $request->clientId;
-    $client_process->save();
+    foreach ($validated->clientsId as $clientId) {
+      $client_process = new ClientProcess;
+      $client_process->process_id = $process->id;
+      $client_process->client_id = $clientId;
+      $client_process->save();
+    }
 
     return redirect()->route('process.index');
   }
@@ -93,7 +101,12 @@ class ProcessController extends Controller
    */
   public function show($id)
   {
-    //
+    $process = Process::where(['id' => $id, 'office_id' => Auth::user()->office_id])->with(['clients', 'legal_instance', 'legal_court', 'legal_forum', 'office', 'tasks.task_priority', 'tasks.process', 'events.process', 'files'])->first();
+
+    return Inertia::render('Process/Show', [
+      'process' =>  $process,
+      'id' => $id,
+    ]);
   }
 
   /**
@@ -130,34 +143,43 @@ class ProcessController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function update(Request $request, $id)
+  public function update(StoreProcessRequest $request, $id)
   {
     $process = Process::where(['id' => $id, 'office_id' => Auth::user()->office_id])->first();
     if (!$process) {
       return redirect()->route('process.index');
     }
 
-    $client_process = ClientProcess::where(['process_id' => $id])->first();
+    $validated = (object) $request->validated();
 
-    $process->title = $request->title;
-    $process->code = $request->code;
-    $process->legal_instance_id = $request->legalInstanceId;
-    $process->judgment = $request->judgment;
-    $process->legal_court_id = $request->legalCourtId;
-    $process->legal_forum_id = $request->legalForumId;
-    $process->action = $request->action;
-    $process->link = $request->link;
-    $process->description = $request->description;
-    $process->fee_cause = $request->feeCause;
-    $process->fee_condemnation = $request->feeCondemnation;
-    $process->fee_amount = $request->feeAmount;
-    $process->distributed_in = $request->distributedIn;
-    $process->observation_description = $request->observationDescription;
-    $process->public = $request->public;
+    $client_process = ClientProcess::where('process_id', $id)->get();
+    foreach ($client_process as $cp) {
+      $cp->delete();
+    }
+
+    $process->title = $validated->title;
+    $process->code = $validated->code;
+    $process->legal_instance_id = $validated->legalInstanceId;
+    $process->judgment = $validated->judgment;
+    $process->legal_court_id = $validated->legalCourtId;
+    $process->legal_forum_id = $validated->legalForumId;
+    $process->action = $validated->action;
+    $process->link = $validated->link;
+    $process->description = $validated->description;
+    $process->fee_cause = $validated->feeCause;
+    $process->fee_condemnation = $validated->feeCondemnation;
+    $process->fee_amount = $validated->feeAmount;
+    $process->distributed_in = $validated->distributedIn;
+    $process->observation_description = $validated->observationDescription;
+    $process->public = $validated->public;
     $process->save();
 
-    $client_process->client_id = $request->clientId;
-    $client_process->save();
+    foreach ($validated->clientsId as $clientId) {
+      $client_process = new ClientProcess;
+      $client_process->process_id = $process->id;
+      $client_process->client_id = $clientId;
+      $client_process->save();
+    }
 
     return redirect()->route('process.index');
   }
@@ -171,5 +193,38 @@ class ProcessController extends Controller
   public function destroy($id)
   {
     //
+  }
+
+  public function show_file($id)
+  {
+    $file = ProcessFile::where(['id' => $id])->with('process')->first();
+
+    if ($file->process->office_id === Auth::user()->office_id) {
+      return redirect()->to(Storage::temporaryUrl('process_files/' . $file->path, now()->addDays(5)));
+    } else {
+      return redirect()->route('process.index');
+    }
+  }
+
+  public function store_file(Request $request, $id)
+  {
+    $file = $request->file;
+    $filecode = (string) Str::uuid();
+    $filename = $file->getClientOriginalName();
+    $filename_encrypted = $filecode . '.' . $file->getClientOriginalExtension();
+    $file->storeAs('process_files', $filename_encrypted);
+
+    $file = new ProcessFile([
+      'path' => $filename_encrypted,
+      'mask' => $filename,
+      'process_id' => $id,
+    ]);
+    $file->save();
+
+    return redirect()->route('process.show', $id);
+  }
+
+  public function destroy_file()
+  {
   }
 }

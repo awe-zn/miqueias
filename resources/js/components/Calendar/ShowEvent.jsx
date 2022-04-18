@@ -12,6 +12,7 @@ export default function ShowEvent({
   setShowModalViewEvent,
   itemFocusData,
   openEditEvent,
+  showActionArea,
 }) {
   return (
     <Modal
@@ -73,28 +74,30 @@ export default function ShowEvent({
                   </span>
                 </span>
               </div>
-              <div className="d-flex flex-row gapx-awe-32">
-                <button
-                  type="button"
-                  className="border-0 link-gray-first fw-semibold fz-16 d-flex flex-row gapx-2 p-0 bg-white transition"
-                  onClick={() => {
-                    setShowModalViewEvent(false);
-                    openEditEvent();
-                  }}
-                >
-                  <FaEdit size={24} /> <span>Editar</span>
-                </button>
-                <Link
-                  type="button"
-                  className="border-0 link-gray-first fw-semibold fz-16 d-flex flex-row gapx-2 p-0 bg-white transition"
-                  as="button"
-                  method="delete"
-                  href={route('event.delete', itemFocusData.id)}
-                  onClick={() => setShowModalViewEvent(false)}
-                >
-                  <FaTrash size={24} /> <span>Excluir</span>
-                </Link>
-              </div>
+              {showActionArea && (
+                <div className="d-flex flex-row gapx-awe-32">
+                  <button
+                    type="button"
+                    className="border-0 link-gray-first fw-semibold fz-16 d-flex flex-row gapx-2 p-0 bg-white transition"
+                    onClick={() => {
+                      setShowModalViewEvent(false);
+                      openEditEvent();
+                    }}
+                  >
+                    <FaEdit size={24} /> <span>Editar</span>
+                  </button>
+                  <Link
+                    type="button"
+                    className="border-0 link-gray-first fw-semibold fz-16 d-flex flex-row gapx-2 p-0 bg-white transition"
+                    as="button"
+                    method="delete"
+                    href={route('event.delete', itemFocusData.id)}
+                    onClick={() => setShowModalViewEvent(false)}
+                  >
+                    <FaTrash size={24} /> <span>Excluir</span>
+                  </Link>
+                </div>
+              )}
             </>
           )}
         </div>
@@ -106,5 +109,10 @@ ShowEvent.propTypes = {
   showModalViewEvent: PropTypes.bool.isRequired,
   setShowModalViewEvent: PropTypes.func.isRequired,
   itemFocusData: PropTypes.shape().isRequired,
-  openEditEvent: PropTypes.func.isRequired,
+  openEditEvent: PropTypes.func,
+  showActionArea: PropTypes.bool,
+};
+ShowEvent.defaultProps = {
+  showActionArea: true,
+  openEditEvent: () => {},
 };

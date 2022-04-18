@@ -33,14 +33,14 @@ export default function CreateEvent({
   });
 
   useEffect(() => {
-    setTimeout(() => {
-      if (!wasSuccessful) {
+    if (wasSuccessful) {
+      setTimeout(() => {
         setShowModalCreateEvent(false);
         setWasTried(false);
         reset();
         clearErrors();
-      }
-    }, 250);
+      }, 250);
+    }
   }, [wasSuccessful]);
 
   useEffect(() => {

@@ -1,0 +1,24 @@
+.task,
+.event {
+  padding: 2px 4px;
+  border-radius: 2px;
+  border: none;
+
+  color: white;
+  text-align: left;
+  font-size: 12px;
+}
+
+.task {
+  background: $blue-first;
+}
+
+.event {
+  background: $brand-second;
+
+  padding-bottom: 12px;
+
+  display: flex;
+  flex-direction: column;
+  row-gap: 2px;
+}

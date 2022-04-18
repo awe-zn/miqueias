@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Link, usePage } from '@inertiajs/inertia-react';
 import { FaPlus } from 'react-icons/fa';
 
@@ -7,7 +7,23 @@ import { AuthLayout } from '../../layout/Auth';
 export default function Process() {
   const { process } = usePage().props;
 
+  const [filterType, setFilterType] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
+
+  const filteredProcess = useMemo(() => {
+    const dataFiltered = process
+      .filter(
+        (item) => item.title.toLowerCase().search(searchTerm.toLowerCase()) >= 0
+      )
+      .filter(({ finished }) => {
+        if (filterType === 'finished') return finished;
+        if (filterType === 'inProgress') return !finished;
+
+        return true;
+      });
+
+    return [...dataFiltered];
+  }, [process, searchTerm, filterType]);
 
   return (
     <AuthLayout>
@@ -42,7 +58,11 @@ export default function Process() {
               />
             </div>
             <div className="col-auto ms-auto ms-md-0">
-              <select className="form-control">
+              <select
+                className="form-control"
+                value={filterType}
+                onChange={({ target: { value } }) => setFilterType(value)}
+              >
                 <option value="all">Todos</option>
                 <option value="finished">Concluído</option>
                 <option value="inProgress">Em andamento</option>
@@ -64,21 +84,25 @@ export default function Process() {
                   <span className="column">Última mov.</span>
                 </div>
                 <div className="body">
-                  {process.map(
+                  {filteredProcess.map(
                     ({
                       id,
                       title,
-                      clients: [{ name: clientName }],
+                      clients,
                       action,
                       legal_forum: { name: legalForumName },
                       updated_at: updatedAt,
                       finished,
                     }) => {
                       const updatedAtDate = new Date(updatedAt);
+                      const clientsName = clients
+                        .map(({ name: clientName }) => clientName)
+                        .toString()
+                        .replaceAll(',', ', ');
 
                       return (
                         <Link
-                          href={route('process.edit', id)}
+                          href={route('process.show', id)}
                           className="item"
                           key={id}
                         >
@@ -92,7 +116,7 @@ export default function Process() {
                             </span>
                           </span>
                           <span className="column">{title}</span>
-                          <span className="column">{clientName}</span>
+                          <span className="column">{clientsName}</span>
                           <span className="column">
                             {action} / {legalForumName}
                           </span>

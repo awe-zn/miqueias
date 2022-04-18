@@ -14,7 +14,7 @@ export default function Process() {
     legal_forums: legalForums,
     process: {
       id: processId,
-      clients: [{ id: clientId }],
+      clients: clientsIdFetched,
       title,
       code,
       legal_instance_id: legalInstanceId,
@@ -34,9 +34,12 @@ export default function Process() {
   } = usePage().props;
 
   const [wasTried, setWasTried] = useState(false);
+  const [clientsAmount, setClientsAmount] = useState(clientsIdFetched.length);
+
+  const clientsId = clientsIdFetched.map(({ id }) => String(id));
 
   const { data, setData, errors, processing, put, reset } = useForm({
-    clientId: String(clientId),
+    clientsId,
     title,
     code,
     legalInstanceId,
@@ -68,6 +71,19 @@ export default function Process() {
     setData(key, newValue);
   };
 
+  const handleNewClient = () => {
+    setClientsAmount(clientsAmount + 1);
+
+    const newClients = [...data.clientsId, ''];
+    setData('clientsId', newClients);
+  };
+
+  const handleChangeClient = (index, idClient) => {
+    const newClients = [...data.clientsId];
+    newClients[index] = idClient;
+    setData('clientsId', newClients);
+  };
+
   return (
     <AuthLayout>
       <div className="container">
@@ -97,31 +113,57 @@ export default function Process() {
                 <label htmlFor="clientId" className="form-label">
                   Cliente
                 </label>
-                <select
-                  className={`form-control ${
-                    errors.clientId
-                      ? 'is-invalid'
-                      : (wasTried && !processing && 'is-valid') || ''
-                  }`.trim()}
-                  value={data.clientId}
-                  onChange={({ target: { value } }) =>
-                    setData('clientId', value)
-                  }
-                  id="clientId"
-                >
-                  <option value="" disabled hidden>
-                    Selecione
-                  </option>
-                  {clients
-                    .sort(({ name: a }, { name: b }) =>
-                      a > b ? 1 : a < b ? -1 : 0
-                    )
-                    .map(({ name: nameCounty, id }) => (
-                      <option value={id} key={id}>
-                        {nameCounty}
+
+                <div className="d-flex flex-column gapy-2">
+                  {Array.from(Array(clientsAmount), (_, index) => (
+                    <select
+                      className={`form-control ${
+                        errors.clientId
+                          ? 'is-invalid'
+                          : (wasTried && !processing && 'is-valid') || ''
+                      }`.trim()}
+                      value={data.clientsId[index]}
+                      onChange={({ target: { value } }) =>
+                        handleChangeClient(index, value)
+                      }
+                      id="clientId"
+                      key={index}
+                    >
+                      <option value="" disabled hidden>
+                        Selecione
                       </option>
-                    ))}
-                </select>
+                      {clients
+                        .filter((item) => item !== undefined)
+                        .sort(({ name: a }, { name: b }) =>
+                          a > b ? 1 : a < b ? -1 : 0
+                        )
+                        .map(({ name: nameCounty, id }) => {
+                          const clientIndex = data.clientsId.findIndex(
+                            (idClient) => idClient === String(id)
+                          );
+                          const isDisabled =
+                            clientIndex >= 0 && clientIndex !== index;
+
+                          return (
+                            <option value={id} key={id} disabled={isDisabled}>
+                              {nameCounty}
+                            </option>
+                          );
+                        })}
+                    </select>
+                  ))}
+                </div>
+
+                {clientsAmount < clients.length && (
+                  <button
+                    className="mt-1 border-0 bg-transparent text-brand-first"
+                    type="button"
+                    onClick={handleNewClient}
+                    disabled={clientsAmount >= clients.length}
+                  >
+                    Adicionar cliente
+                  </button>
+                )}
               </div>
               <div>
                 <Input
@@ -320,7 +362,11 @@ export default function Process() {
                   <IMaskInput
                     id="feeCause"
                     name="feeCause"
-                    className="form-control"
+                    className={`form-control ${
+                      errors.feeCause
+                        ? 'is-invalid'
+                        : (wasTried && !processing && 'is-valid') || ''
+                    }`}
                     mask="R$ num"
                     unmask
                     blocks={{
@@ -358,7 +404,11 @@ export default function Process() {
                   <IMaskInput
                     id="feeCondemnation"
                     name="feeCondemnation"
-                    className="form-control"
+                    className={`form-control ${
+                      errors.feeCondemnation
+                        ? 'is-invalid'
+                        : (wasTried && !processing && 'is-valid') || ''
+                    }`}
                     mask="R$ num"
                     unmask
                     blocks={{
@@ -380,7 +430,11 @@ export default function Process() {
                   <IMaskInput
                     id="feeAmount"
                     name="feeAmount"
-                    className="form-control"
+                    className={`form-control ${
+                      errors.feeAmount
+                        ? 'is-invalid'
+                        : (wasTried && !processing && 'is-valid') || ''
+                    }`}
                     mask="R$ num"
                     unmask
                     blocks={{

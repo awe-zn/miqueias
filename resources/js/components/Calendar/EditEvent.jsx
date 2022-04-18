@@ -55,14 +55,14 @@ export default function EditEvent({
   }, [showModalEditEvent]);
 
   useEffect(() => {
-    setTimeout(() => {
-      if (wasSuccessful) {
+    if (wasSuccessful) {
+      setTimeout(() => {
         setShowModalEditEvent(false);
         setWasTried(false);
         reset();
         clearErrors();
-      }
-    }, 250);
+      }, 250);
+    }
   }, [wasSuccessful]);
 
   const handleSubmit = (e) => {

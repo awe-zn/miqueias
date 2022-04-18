@@ -28,11 +28,26 @@ class Process extends Model
 
   public function office()
   {
-    return $this->belongsTo(Office::class, 'id', 'office_id');
+    return $this->belongsTo(Office::class, 'office_id', 'id');
   }
 
   public function clients()
   {
     return $this->hasManyThrough(User::class, ClientProcess::class, 'process_id', 'id', 'id', 'client_id');
+  }
+
+  public function tasks()
+  {
+    return $this->hasMany(Task::class, 'process_id', 'id');
+  }
+
+  public function events()
+  {
+    return $this->hasMany(Event::class, 'process_id', 'id');
+  }
+
+  public function files()
+  {
+    return $this->hasMany(ProcessFile::class, 'process_id', 'id');
   }
 }

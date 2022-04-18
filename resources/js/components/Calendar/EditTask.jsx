@@ -54,14 +54,14 @@ export default function EditTask({
   }, [showModalEditTask]);
 
   useEffect(() => {
-    setTimeout(() => {
-      if (!wasSuccessful) {
+    if (wasSuccessful) {
+      setTimeout(() => {
         setShowModalEditTask(false);
         setWasTried(false);
         reset();
         clearErrors();
-      }
-    }, 250);
+      }, 250);
+    }
   }, [wasSuccessful]);
 
   const handleSubmit = (e) => {

@@ -10,7 +10,6 @@ class ClientProcess extends Model
   use HasFactory;
 
   protected $table = 'client_process';
-  protected $primaryKey = null;
   public $incrementing = false;
   public $timestamps = false;
 

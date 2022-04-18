@@ -10,8 +10,10 @@ use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
+use Inertia\Inertia;
 use Laravel\Fortify\Contracts\LogoutResponse;
 use Laravel\Fortify\Fortify;
+use Laravel\Fortify\Http\Responses\PasswordUpdateResponse;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -46,9 +48,8 @@ class FortifyServiceProvider extends ServiceProvider
     RateLimiter::for('login', function (Request $request) {
       return Limit::perMinute(600)->by($request->email . $request->ip());
     });
-
-    // RateLimiter::for('two-factor', function (Request $request) {
-    //   return Limit::perMinute(5)->by($request->session()->get('login.id'));
-    // });
+    Fortify::resetPasswordView(function () {
+      return Inertia::render('Auth/RecoveryPassword', ['request' => ['email' => request()->email, 'token' => request()->route('token')]]);
+    });
   }
 }

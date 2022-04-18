@@ -12,6 +12,7 @@ export default function ShowTask({
   setShowModalViewTask,
   itemFocusData,
   openEditTask,
+  showActionArea,
 }) {
   return (
     <Modal show={showModalViewTask} onHide={() => setShowModalViewTask(false)}>
@@ -62,28 +63,30 @@ export default function ShowTask({
                   </span>
                 </span>
               </div>
-              <div className="d-flex flex-row gapx-awe-32">
-                <button
-                  type="button"
-                  className="border-0 link-gray-first fw-semibold fz-16 d-flex flex-row gapx-2 p-0 bg-white transition"
-                  onClick={() => {
-                    setShowModalViewTask(false);
-                    openEditTask();
-                  }}
-                >
-                  <FaEdit size={24} /> <span>Editar</span>
-                </button>
-                <Link
-                  type="button"
-                  className="border-0 link-gray-first fw-semibold fz-16 d-flex flex-row gapx-2 p-0 bg-white transition"
-                  as="button"
-                  method="delete"
-                  href={route('task.delete', itemFocusData.id)}
-                  onClick={() => setShowModalViewTask(false)}
-                >
-                  <FaTrash size={24} /> <span>Excluir</span>
-                </Link>
-              </div>
+              {showActionArea && (
+                <div className="d-flex flex-row gapx-awe-32">
+                  <button
+                    type="button"
+                    className="border-0 link-gray-first fw-semibold fz-16 d-flex flex-row gapx-2 p-0 bg-white transition"
+                    onClick={() => {
+                      setShowModalViewTask(false);
+                      openEditTask();
+                    }}
+                  >
+                    <FaEdit size={24} /> <span>Editar</span>
+                  </button>
+                  <Link
+                    type="button"
+                    className="border-0 link-gray-first fw-semibold fz-16 d-flex flex-row gapx-2 p-0 bg-white transition"
+                    as="button"
+                    method="delete"
+                    href={route('task.delete', itemFocusData.id)}
+                    onClick={() => setShowModalViewTask(false)}
+                  >
+                    <FaTrash size={24} /> <span>Excluir</span>
+                  </Link>
+                </div>
+              )}
             </>
           )}
         </div>
@@ -95,5 +98,10 @@ ShowTask.propTypes = {
   showModalViewTask: PropTypes.bool.isRequired,
   setShowModalViewTask: PropTypes.func.isRequired,
   itemFocusData: PropTypes.shape().isRequired,
-  openEditTask: PropTypes.func.isRequired,
+  openEditTask: PropTypes.func,
+  showActionArea: PropTypes.bool,
+};
+ShowTask.defaultProps = {
+  showActionArea: true,
+  openEditTask: () => {},
 };
