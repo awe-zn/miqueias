@@ -35,6 +35,7 @@ class CreateProcessTable extends Migration
       $table->foreign('legal_forum_id')->references('id')->on('legal_forums')->onDelete('SET NULL')->onUpdate('CASCADE');
       $table->integer('office_id')->unsigned();
       $table->foreign('office_id')->references('id')->on('offices')->onDelete('CASCADE')->onUpdate('CASCADE');
+      $table->softDeletes();
       $table->timestampsTz();
     });
   }

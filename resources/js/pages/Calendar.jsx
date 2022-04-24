@@ -3,7 +3,7 @@ import { useState, useMemo, useEffect } from 'react';
 import { Dropdown } from 'react-bootstrap';
 import { FaPlus } from 'react-icons/fa';
 import { usePage } from '@inertiajs/inertia-react';
-import { format } from 'date-fns';
+import { format, addHours } from 'date-fns';
 
 import { AuthLayout } from '../layout/Auth';
 import { Title } from '../components/auth/Title';
@@ -216,7 +216,7 @@ export default function Calendar() {
                                     'dd/MM/yyyy HH:mm'
                                   )
                                 : format(
-                                    new Date(item.schedule_at),
+                                    addHours(new Date(item.schedule_at), 3),
                                     'dd/MM/yyyy'
                                   )}
                             </span>

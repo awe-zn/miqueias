@@ -33,7 +33,7 @@ class UserSeeder extends Seeder
       'phone_number' => $faker->phoneNumber(),
       'role' => 'advocate',
       'addres_id' => $faker->numberBetween(2, 21),
-      'office_id' => $faker->numberBetween(2, 21),
+      'office_id' => 2,
     ]);
 
     foreach ($users as $value) {

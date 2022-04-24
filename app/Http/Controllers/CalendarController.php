@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\Office;
 use App\Models\Process;
 use App\Models\Task;
 use App\Models\TaskPriority;
@@ -22,8 +23,16 @@ class CalendarController extends Controller
     $process = Process::where(['office_id' => Auth::user()->office_id])->get();
     $task_priority = TaskPriority::all();
 
-    $tasks = Task::with(['process', 'task_priority'])->get();
-    $events = Event::with('process')->get();
+    $officeId = auth()->user()->office->id;
+    $office = Office::query()->where('id', $officeId)->with([
+      'events.process',
+      'tasks' => function ($query) {
+        $query->with(['task_priority', 'process']);
+      },
+    ])->first();
+
+    $tasks = $office->tasks;
+    $events = $office->events;
 
     return Inertia::render('Calendar', [
       'process' => $process,

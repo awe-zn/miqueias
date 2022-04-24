@@ -7,6 +7,8 @@
   color: white;
   text-align: left;
   font-size: 12px;
+
+  outline: none;
 }
 
 .task {
@@ -21,4 +23,27 @@
   display: flex;
   flex-direction: column;
   row-gap: 2px;
+}
+
+.event-dashboard {
+  color: $blue-first;
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 500;
+
+  padding: 2px 4px 12px;
+  border: 1px solid currentColor;
+  border-radius: 2px;
+
+  display: flex;
+  flex-direction: column;
+  row-gap: 4px;
+
+  background: none;
+  outline: none;
+
+  .time {
+    line-height: 16px;
+    font-weight: 400;
+  }
 }

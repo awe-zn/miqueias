@@ -18,6 +18,11 @@
 .form-label {
   width: 100%;
 }
+.form-control {
+  &.dashboard-filter {
+    max-width: 340px;
+  }
+}
 
 .hamburguer {
   border: 0;

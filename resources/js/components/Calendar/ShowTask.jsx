@@ -1,9 +1,10 @@
+import { useEffect, useState } from 'react';
 import { Modal } from 'react-bootstrap';
 import { FaTimes, FaEdit, FaTrash } from 'react-icons/fa';
 import PropTypes from 'prop-types';
 import { format, addHours } from 'date-fns';
 import localePtBr from 'date-fns/locale/pt-BR';
-import { Link } from '@inertiajs/inertia-react';
+import { Link, useForm } from '@inertiajs/inertia-react';
 
 import { Title } from '../auth/Title';
 
@@ -14,6 +15,22 @@ export default function ShowTask({
   openEditTask,
   showActionArea,
 }) {
+  const [concluded, setConcluded] = useState(false);
+
+  const { processing, put } = useForm();
+
+  useEffect(() => {
+    if (Object.keys(itemFocusData).length > 0) {
+      setConcluded(itemFocusData.concluded);
+    }
+  }, [showModalViewTask]);
+
+  const handleConclusionTask = ({ target: { checked } }) => {
+    setConcluded(checked);
+
+    put(route('task.conclude', itemFocusData.id));
+  };
+
   return (
     <Modal show={showModalViewTask} onHide={() => setShowModalViewTask(false)}>
       <Modal.Body className="p-awe-32">
@@ -62,6 +79,19 @@ export default function ShowTask({
                     {itemFocusData.process.title}
                   </span>
                 </span>
+                <div className="form-check calendar mt-awe-32 mb-3">
+                  <input
+                    className="form-check-input"
+                    type="checkbox"
+                    id="concluded"
+                    disabled={processing}
+                    onChange={handleConclusionTask}
+                    checked={concluded}
+                  />
+                  <label className="form-check-label" htmlFor="concluded">
+                    Marcar como concluída
+                  </label>
+                </div>
               </div>
               {showActionArea && (
                 <div className="d-flex flex-row gapx-awe-32">

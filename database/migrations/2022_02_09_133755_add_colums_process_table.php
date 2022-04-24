@@ -14,7 +14,7 @@ class AddColumsProcessTable extends Migration
   public function up()
   {
     Schema::table('process', function (Blueprint $table) {
-      $table->boolean('finished')->default(false);
+      $table->boolean('concluded')->default(false);
     });
   }
 
@@ -26,7 +26,7 @@ class AddColumsProcessTable extends Migration
   public function down()
   {
     Schema::table('process', function (Blueprint $table) {
-      $table->dropColumn('finished');
+      $table->dropColumn('concluded');
     });
   }
 }

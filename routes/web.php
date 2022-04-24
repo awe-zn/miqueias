@@ -5,14 +5,13 @@ use App\Http\Controllers\CaseContactController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CountyController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProcessController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TaskController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Storage;
 
 Route::inertia('/', 'Home')->name('homesite');
 Route::inertia('/about', 'About')->name('about');
@@ -28,7 +27,7 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-  Route::inertia('/dashboard', 'Dashboard')->name('home');
+  Route::get('/dashboard', [DashboardController::class, 'index'])->name('home');
   Route::prefix('/profile')->name('profile.')->group(function () {
     Route::get('/', [ProfileController::class, 'index'])->name('index');
     Route::put('/identification', [ProfileController::class, 'update_identification'])->name('identification');
@@ -41,6 +40,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/{id}', [ProcessController::class, 'show'])->name('show');
     Route::put('/{id}', [ProcessController::class, 'update'])->name('update');
     Route::get('/edit/{id}', [ProcessController::class, 'edit'])->name('edit');
+    Route::delete('/{id}', [ProcessController::class, 'destroy'])->name('destroy');
+    Route::put('/conclude/{id}', [ProcessController::class, 'conclude'])->name('conclude');
 
     Route::prefix('/files')->name('files.')->group(function () {
       Route::get('/{id}', [ProcessController::class, 'show_file'])->name('show');
@@ -51,6 +52,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
   Route::prefix('/task')->name('task.')->group(function () {
     Route::post('/', [TaskController::class, 'store'])->name('store');
     Route::put('/{id}', [TaskController::class, 'update'])->name('update');
+    Route::put('/conclude/{id}', [TaskController::class, 'conclude'])->name('conclude');
     Route::delete('/{id}', [TaskController::class, 'destroy'])->name('delete');
   });
   Route::prefix('/event')->name('event.')->group(function () {

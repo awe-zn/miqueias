@@ -33,7 +33,7 @@ class UserFactory extends Factory
       'phone_number' => $this->faker->phoneNumber(),
       'role' => $this->faker->randomElement(['advocate', 'client']),
       'addres_id' => $this->faker->numberBetween(1, 20),
-      'office_id' => $this->faker->numberBetween(1, 20),
+      'office_id' => 2,
     ];
   }
 

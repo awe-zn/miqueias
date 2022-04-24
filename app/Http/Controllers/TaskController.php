@@ -84,6 +84,7 @@ class TaskController extends Controller
   {
     $task = Task::find($id);
 
+
     if (!$task) return redirect()->route('home');
 
     $validated = (object) $request->validated();
@@ -114,5 +115,18 @@ class TaskController extends Controller
     $task->delete();
 
     return redirect()->route('calendar.index');
+  }
+
+  public function conclude($id)
+  {
+    $task = Task::find($id);
+
+    if (!$task) return redirect()->route('home');
+
+    $task->concluded = !$task->concluded;
+
+    $task->save();
+
+    return redirect()->back();
   }
 }

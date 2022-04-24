@@ -8,7 +8,7 @@ export const AuthLayout = ({ children }) => (
     <Header />
     <div className="page-content">
       <Sidebar />
-      <div className="content">{children}</div>
+      <main className="content">{children}</main>
     </div>
   </div>
 );

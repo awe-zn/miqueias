@@ -92,7 +92,7 @@ export default function Process() {
                       action,
                       legal_forum: { name: legalForumName },
                       updated_at: updatedAt,
-                      finished,
+                      concluded,
                     }) => {
                       const updatedAtDate = new Date(updatedAt);
                       const clientsName = clients
@@ -109,10 +109,10 @@ export default function Process() {
                           <span className="column column-badge">
                             <span
                               className={`badge-calendar ${
-                                finished ? 'finished' : 'in-progress'
+                                concluded ? 'finished' : 'in-progress'
                               }`.trim()}
                             >
-                              {finished ? 'Concluído' : 'Em andamento'}
+                              {concluded ? 'Concluído' : 'Em andamento'}
                             </span>
                           </span>
                           <span className="column">{title}</span>

@@ -18,4 +18,19 @@ class Office extends Model
   {
     return $this->hasMany(User::class, 'office_id', 'id');
   }
+
+  public function events()
+  {
+    return $this->hasManyThrough(Event::class, Process::class, 'office_id', 'process_id', 'id', 'id');
+  }
+
+  public function tasks()
+  {
+    return $this->hasManyThrough(Task::class, Process::class, 'office_id', 'process_id', 'id', 'id');
+  }
+
+  public function process()
+  {
+    return $this->hasMany(Process::class, 'office_id', 'id');
+  }
 }

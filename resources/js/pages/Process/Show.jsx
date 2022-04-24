@@ -1,13 +1,13 @@
-/* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react';
-import { usePage } from '@inertiajs/inertia-react';
-import { FaDownload, FaRegFolder } from 'react-icons/fa';
+import { usePage, Link, useForm } from '@inertiajs/inertia-react';
+import { FaChevronDown, FaDownload, FaRegFolder } from 'react-icons/fa';
 import { format } from 'date-fns';
-
 import { useDropzone } from 'react-dropzone';
 import { toast } from 'react-toastify';
 import { FiFile } from 'react-icons/fi';
 import { Inertia } from '@inertiajs/inertia';
+
+import { Dropdown } from 'react-bootstrap';
 import { AuthLayout } from '../../layout/Auth';
 
 import ShowTask from '../../components/Calendar/ShowTask';
@@ -23,7 +23,10 @@ export default function Show() {
     tasks,
     events,
     files,
+    concluded,
   } = process;
+
+  const { processing, put, delete: deleteRequest } = useForm();
 
   const [taskModalOpen, setTaskModalOpen] = useState(false);
   const [taskModalData, setTaskModalData] = useState({});
@@ -64,6 +67,14 @@ export default function Show() {
     }
   }, [acceptedFiles]);
 
+  const handleConclusionProcess = () => {
+    put(route('process.conclude', id));
+  };
+
+  const handleDeleteProcess = () => {
+    deleteRequest(route('process.destroy', id));
+  };
+
   return (
     <>
       <AuthLayout>
@@ -82,9 +93,44 @@ export default function Show() {
                 </div>
               </div>
               <div className="col-12">
-                <h1 className="text-blue-first fw-bold fz-24 m-0">
-                  {process.title}
-                </h1>
+                <div className="d-flex flex-row align-items-center">
+                  <h1 className="text-blue-first fw-bold fz-24 m-0">
+                    {process.title}
+                  </h1>
+                  <Dropdown align="end" className="ms-auto">
+                    <Dropdown.Toggle
+                      className="btn btn-outline-blue-first fw-bold fz-14 px-e-2 d-flex flex-row gapx-3 align-items-center"
+                      disabled={processing}
+                    >
+                      Ações <FaChevronDown />
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu className="dropdown-calendar">
+                      <Link
+                        as="button"
+                        href={route('process.edit', id)}
+                        type="button"
+                        className="dropdown-item"
+                      >
+                        Editar
+                      </Link>
+                      <button
+                        type="button"
+                        className="dropdown-item"
+                        onClick={handleConclusionProcess}
+                      >
+                        {!concluded ? 'Encerrar' : 'Reabrir'}
+                      </button>
+                      <button
+                        type="button"
+                        className="dropdown-item"
+                        onClick={handleDeleteProcess}
+                      >
+                        Excluir
+                      </button>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                </div>
               </div>
             </div>
           </div>

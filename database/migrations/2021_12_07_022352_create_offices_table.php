@@ -21,7 +21,7 @@ class CreateOfficesTable extends Migration
       $table->string('ccm', 16)->unique();
       $table->string('oab', 16)->unique();
       $table->integer('state_oab')->unsigned()->nullable();
-      $table->foreign('state_oab')->references('id')->on('states')->onDelete('SET NULL')->onUpdate('CASCADE');;
+      $table->foreign('state_oab')->references('id')->on('states')->onDelete('SET NULL')->onUpdate('CASCADE');
       $table->timestampsTz();
     });
   }
