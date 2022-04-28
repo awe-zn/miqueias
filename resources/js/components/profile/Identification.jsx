@@ -128,7 +128,7 @@ export const Identification = () => {
                 label="Telefone"
                 value={data.phoneNumber}
                 handleSetValue={handleSetData}
-                mask="(99) 9 9999-9999"
+                mask="(99) 9999-9999"
                 status={
                   errors.phoneNumber
                     ? 'is-invalid'

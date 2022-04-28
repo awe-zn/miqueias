@@ -563,7 +563,7 @@ export const CaseContact = () => {
                                       ' da empresa'}
                                   </label>
                                   <IMaskInput
-                                    mask="(00) 0 0000-0000"
+                                    mask="(99) 9999-9999"
                                     className="form-control"
                                     placeholder="(00) 0 0000-0000"
                                     id="phone"

@@ -93,6 +93,12 @@
   .body {
     .item {
       @include clients-row-layout;
+
+      text-decoration: none;
+      text-align: left;
+      width: 100%;
+      border: none;
+      background: none;
     }
   }
 }

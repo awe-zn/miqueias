@@ -63,7 +63,11 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
   Route::prefix('/calendar')->name('calendar.')->group(function () {
     Route::get('/', [CalendarController::class, 'index'])->name('index');
   });
-  Route::get('/clients', [ClientController::class, 'index'])->name('client.index');
+  Route::prefix('/client')->name('client.')->group(function () {
+    Route::get('/', [ClientController::class, 'index'])->name('index');
+    Route::post('/', [ClientController::class, 'store'])->name('store');
+    Route::put('/{id}', [ClientController::class, 'update'])->name('update');
+  });
 });
 
 Route::prefix('/county')->name('county.')->group(function () {
