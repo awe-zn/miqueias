@@ -31,6 +31,8 @@ class User extends Authenticatable
     'role',
     'addres_id',
     'office_id',
+    'tasks_notification',
+    'events_notification',
   ];
 
   /**

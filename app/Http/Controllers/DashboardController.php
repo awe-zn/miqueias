@@ -21,7 +21,6 @@ class DashboardController extends Controller
         $startWeek = now()->startOfWeek(0);
         $endWeek = now()->endOfWeek(6);
 
-
         $query->whereBetween('schedule_at', [$startWeek, $endWeek])->limit(4);
       },
     ])->first();

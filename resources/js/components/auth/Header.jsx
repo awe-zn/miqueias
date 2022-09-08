@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { usePage, Link } from '@inertiajs/inertia-react';
 import { FaChevronDown } from 'react-icons/fa';
 import { Dropdown } from 'react-bootstrap';
@@ -5,13 +6,13 @@ import { Dropdown } from 'react-bootstrap';
 import imageHelper from '../../helper/image';
 
 import logo from '../../../images/logo.svg';
-import user from '../../../images/user.svg';
 
 export const Header = () => {
   const {
     appEnvironment,
-    user: { name },
+    user: { name, avatar },
   } = usePage().props;
+  const avatarId = useMemo(() => avatar?.id || 0, [avatar]);
 
   return (
     <header className="shadow sticky-top bg-white">
@@ -30,9 +31,9 @@ export const Header = () => {
                 <Dropdown.Toggle className="dropdown-fit mx-n1 px-1">
                   <div className="d-flex align-items-center gapx-3">
                     <img
-                      src={imageHelper({ appEnvironment, path: user })}
+                      src={route('profile.avatar', { avatar: avatarId })}
                       alt={name}
-                      className="img-fluid rounded-circle object-cover"
+                      className="img-fluid rounded-circle object-cover profile-pic"
                     />
 
                     <span className="text-blue-first fw-semibold d-flex align-items-center gapx-2">

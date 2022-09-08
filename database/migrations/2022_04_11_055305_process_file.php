@@ -16,7 +16,7 @@ class ProcessFile extends Migration
     Schema::create('process_files', function (Blueprint $table) {
       $table->id();
       $table->string('path');
-      $table->string('mask')->unique();
+      $table->string('mask');
       $table->integer('process_id')->unsigned()->nullable();
       $table->foreign('process_id')->references('id')->on('adresses')->onDelete('SET NULL')->onUpdate('CASCADE');
       $table->timestamps();

@@ -4,7 +4,7 @@ import { addHours, format, isToday, startOfToday } from 'date-fns';
 
 import { AuthLayout } from '../layout/Auth';
 
-import ShowEvent from '../components/Calendar/ShowEvent';
+import ShowEvent from '../components/calendar/ShowEvent';
 
 const TASKSDEFAULT = {
   amount: 0,
@@ -26,9 +26,8 @@ export default function Dashboard() {
 
     const tasksConcludedFilter = tasksFetched.filter((task) => task.concluded);
     const tasksConcludedAmount = tasksConcludedFilter.length;
-    const tasksConcludedPercentage = Math.floor(
-      (tasksConcludedAmount / tasksAmount) * 100
-    );
+    const tasksConcludedPercentage =
+      Math.floor((tasksConcludedAmount / tasksAmount) * 100) || 0;
     tasksConcluded.amount = tasksConcludedAmount;
     tasksConcluded.percentage = tasksConcludedPercentage;
 
@@ -38,9 +37,8 @@ export default function Dashboard() {
         addHours(new Date(task.schedule_at), 3) < startOfToday(new Date())
     );
     const tasksLateAmount = tasksLateFilter.length;
-    const tasksLatePercentage = Math.floor(
-      (tasksLateAmount / tasksAmount) * 100
-    );
+    const tasksLatePercentage =
+      Math.floor((tasksLateAmount / tasksAmount) * 100) || 0;
     tasksLate.amount = tasksLateAmount;
     tasksLate.percentage = tasksLatePercentage;
 
@@ -51,9 +49,8 @@ export default function Dashboard() {
         isToday(addHours(new Date(task.schedule_at), 3))
     );
     const tasksToDoAmount = tasksToDoFilter.length;
-    const tasksToDoPercentage = Math.floor(
-      (tasksToDoAmount / tasksAmount) * 100
-    );
+    const tasksToDoPercentage =
+      Math.floor((tasksToDoAmount / tasksAmount) * 100) || 0;
     tasksToDo.amount = tasksToDoAmount;
     tasksToDo.percentage = tasksToDoPercentage;
 

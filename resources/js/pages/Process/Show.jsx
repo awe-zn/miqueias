@@ -6,12 +6,12 @@ import { useDropzone } from 'react-dropzone';
 import { toast } from 'react-toastify';
 import { FiFile } from 'react-icons/fi';
 import { Inertia } from '@inertiajs/inertia';
-
 import { Dropdown } from 'react-bootstrap';
+
 import { AuthLayout } from '../../layout/Auth';
 
-import ShowTask from '../../components/Calendar/ShowTask';
-import ShowEvent from '../../components/Calendar/ShowEvent';
+import ShowTask from '../../components/calendar/ShowTask';
+import ShowEvent from '../../components/calendar/ShowEvent';
 
 export default function Show() {
   const { process, id } = usePage().props;
@@ -165,7 +165,7 @@ export default function Show() {
                       <span>
                         Status:{' '}
                         <span className="text-gray-first">
-                          {process.finished ? 'Concluído' : 'Em andamento'}
+                          {process.concluded ? 'Concluído' : 'Em andamento'}
                         </span>
                       </span>
                       <span>

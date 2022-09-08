@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AvatarController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\CaseContactController;
 use App\Http\Controllers\ClientController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\CountyController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProcessController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TaskController;
@@ -32,6 +34,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/', [ProfileController::class, 'index'])->name('index');
     Route::put('/identification', [ProfileController::class, 'update_identification'])->name('identification');
     Route::put('/office', [ProfileController::class, 'update_office'])->name('office');
+    Route::post('/avatar', [AvatarController::class, 'store'])->name('avatar');
+    Route::get('/avatar', [AvatarController::class, 'show'])->name('avatar');
+    Route::put('/notifications', [NotificationController::class, 'update'])->name('notifications');
   });
   Route::prefix('/process')->name('process.')->group(function () {
     Route::get('/', [ProcessController::class, 'index'])->name('index');

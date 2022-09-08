@@ -36,9 +36,6 @@ RUN docker-php-ext-enable imagick
 
 RUN docker-php-ext-install calendar zip pdo pdo_pgsql
 
-RUN pecl install xdebug
-RUN docker-php-ext-enable xdebug
-
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 RUN echo "max_file_uploads=100" >> /usr/local/etc/php/conf.d/docker-php-ext-max_file_uploads.ini

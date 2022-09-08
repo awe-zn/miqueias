@@ -47,7 +47,7 @@ export default function Clients() {
       <div className="container">
         <div className="row gapy-4">
           <div className="col-12">
-            <div className="mb-2 d-flex flex-row align-items-center">
+            <div className="mb-2 d-flex flex-row">
               <Title label="Clientes" />
               <button
                 type="button"

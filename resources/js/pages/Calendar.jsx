@@ -7,12 +7,12 @@ import { format, addHours } from 'date-fns';
 
 import { AuthLayout } from '../layout/Auth';
 import { Title } from '../components/auth/Title';
-import CreateTask from '../components/Calendar/CreateTask';
-import EditTask from '../components/Calendar/EditTask';
-import CreateEvent from '../components/Calendar/CreateEvent';
-import ShowEvent from '../components/Calendar/ShowEvent';
-import EditEvent from '../components/Calendar/EditEvent';
-import ShowTask from '../components/Calendar/ShowTask';
+import CreateTask from '../components/calendar/CreateTask';
+import EditTask from '../components/calendar/EditTask';
+import CreateEvent from '../components/calendar/CreateEvent';
+import ShowEvent from '../components/calendar/ShowEvent';
+import EditEvent from '../components/calendar/EditEvent';
+import ShowTask from '../components/calendar/ShowTask';
 import { Pagination } from '../components/Pagination';
 
 export default function Calendar() {
@@ -73,9 +73,9 @@ export default function Calendar() {
                   <div className="mb-awe-32">
                     <Title label="Agenda" />
                   </div>
-                  <Dropdown align="end" className="ms-auto">
+                  <Dropdown align="end" className="ms-auto mb-awe-32">
                     <Dropdown.Toggle
-                      className="text-white fw-bold fz-14 px-e-2 d-flex flex-row gapx-3 align-items-center"
+                      className="fw-bold text-white d-flex align-items-center gapx-3"
                       variant="brand-second"
                     >
                       Adicionar <FaPlus />

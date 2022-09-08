@@ -1,17 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useForm, usePage } from '@inertiajs/inertia-react';
 import axios from 'axios';
-
-import imageHelper from '../../helper/image';
-import user from '../../../images/user.svg';
+import { useDropzone } from 'react-dropzone';
+import { Inertia } from '@inertiajs/inertia';
+import { toast } from 'react-toastify';
 
 import { Input } from '../Input';
 import { InputMask } from '../InputMask';
 
 export const Identification = () => {
   const {
-    appEnvironment,
-    user: { name, email, phone_number: phoneNumber },
+    user: { name, email, phone_number: phoneNumber, avatar },
     addres: {
       zip_code: zipCode,
       line_description: lineDescription,
@@ -24,6 +23,7 @@ export const Identification = () => {
     },
     states,
   } = usePage().props;
+  const avatarId = useMemo(() => avatar?.id || 0, [avatar]);
 
   const [wasTried, setWasTried] = useState(false);
   const [state, setState] = useState(stateCode);
@@ -40,6 +40,39 @@ export const Identification = () => {
     countyId,
     stateCode,
   });
+
+  const [dragging, setDragging] = useState(false);
+  const { getInputProps, getRootProps, acceptedFiles } = useDropzone({
+    maxSize: 2000000,
+    multiple: false,
+    accept: {
+      'image/jpeg': [],
+      'image/png': [],
+    },
+    onDropRejected() {
+      toast.error('Por favor, insira um arquivo menor que 2MB.');
+    },
+    onDragEnter() {
+      setDragging(true);
+    },
+    onDragLeave() {
+      setDragging(false);
+    },
+    onDrop() {
+      setDragging(false);
+    },
+  });
+  useEffect(() => {
+    if (acceptedFiles.length > 0) {
+      Inertia.post(
+        route('profile.avatar'),
+        {
+          avatar: acceptedFiles[0],
+        },
+        { forceFormData: true }
+      );
+    }
+  }, [acceptedFiles]);
 
   useEffect(() => {
     if (data.stateCode !== state) {
@@ -85,14 +118,20 @@ export const Identification = () => {
           <div className="d-flex flex-column gapy-awe-32">
             <div className="d-flex flex-column">
               <label className="form-label">Foto do perfil</label>
-              <img
-                src={imageHelper({
-                  appEnvironment,
-                  path: user,
+              <div
+                {...getRootProps({
+                  className: `cursor-pointer w-content ${
+                    dragging ? 'dragging' : ''
+                  }`.trim(),
                 })}
-                alt={data.name}
-                className="img-fluid rounded-circle object-cover img-user bg-brand-first"
-              />
+              >
+                <input {...getInputProps()} />
+                <img
+                  src={route('profile.avatar', { avatar: avatarId })}
+                  alt={data.name}
+                  className="img-fluid rounded-circle object-cover img-user bg-brand-first profile-pic-big"
+                />
+              </div>
             </div>
             <div>
               <Input

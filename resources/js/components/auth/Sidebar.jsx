@@ -4,7 +4,6 @@ import {
   FaTasks,
   FaRegUser,
   FaRegAddressCard,
-  FaRegComment,
   FaRegFolder,
 } from 'react-icons/fa';
 import { Link, usePage } from '@inertiajs/inertia-react';
@@ -75,12 +74,6 @@ export const Sidebar = () => {
               </li>
             </>
           )}
-          <li>
-            <Link tabIndex={0}>
-              <FaRegComment size={24} />
-              <span className="label">Atendimentos</span>
-            </Link>
-          </li>
           <li>
             <Link
               tabIndex={0}

@@ -24,11 +24,13 @@ class ProfileController extends Controller
     }])->find(Auth::user()->addres_id);
     $office = Office::find(Auth::user()->office_id);
     $states = State::all();
+    $notifications = ['tasks' => Auth::user()->tasks_notification, 'events' => Auth::user()->events_notification];
 
     return Inertia::render('Profile', [
       'addres' => $addres,
       'office' => $office,
       'states' => $states,
+      'notifications' => $notifications,
     ]);
   }
 

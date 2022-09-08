@@ -245,8 +245,4 @@ class ProcessController extends Controller
 
     return redirect()->route('process.show', $id);
   }
-
-  public function destroy_file()
-  {
-  }
 }

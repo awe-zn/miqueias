@@ -14,6 +14,19 @@ $utilities: map-merge(
             ),
         )
       ),
+    'width':
+      map-merge(
+        map-get($utilities, 'width'),
+        (
+          values:
+            map-merge(
+              map-get(map-get($utilities, 'width'), 'values'),
+              (
+                'content': fit-content,
+              )
+            ),
+        )
+      ),
     'font-weight': (
       property: font-weight,
       class: fw,
@@ -78,5 +91,3 @@ $utilities: map-merge(
     ),
   )
 );
-
-// $utilities: ();
