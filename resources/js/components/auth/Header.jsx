@@ -5,7 +5,7 @@ import { Dropdown } from 'react-bootstrap';
 
 import imageHelper from '../../helper/image';
 
-import logo from '../../../images/logo.svg';
+import logo from '../../../images/logo.png';
 
 export const Header = () => {
   const {
@@ -22,7 +22,7 @@ export const Header = () => {
             <img
               src={imageHelper({ appEnvironment, path: logo })}
               alt="Miqueias Costa"
-              className="img-fluid"
+              className="img-fluid img-logo"
             />
           </div>
           <div className="col-8 col-md-auto ms-auto">

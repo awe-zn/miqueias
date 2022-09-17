@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import imageHelper from '../helper/image';
 
-import logo from '../../images/logo.svg';
+import logo from '../../images/logo.png';
 
 export default function UnAuthLayout({ children }) {
   const { appEnvironment } = usePage().props;
@@ -18,7 +18,7 @@ export default function UnAuthLayout({ children }) {
                 <img
                   src={imageHelper({ appEnvironment, path: logo })}
                   alt="Miqueias Costa"
-                  className="img-fluid logo-login mx-auto mb-4"
+                  className="img-fluid logo-login mx-auto mb-4 img-logo"
                 />
                 {children}
               </div>

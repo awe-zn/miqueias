@@ -15,20 +15,27 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
-Route::inertia('/', 'Home')->name('homesite');
-Route::inertia('/about', 'About')->name('about');
-Route::inertia('/action', 'Action')->name('action');
-Route::inertia('/terms', 'Terms')->name('terms');
-Route::inertia('/privacy', 'Privacy')->name('privacy');
+// Route::inertia('/about', 'About')->name('about');
+// Route::inertia('/action', 'Action')->name('action');
+// Route::inertia('/terms', 'Terms')->name('terms');
+// Route::inertia('/privacy', 'Privacy')->name('privacy');
 
 Route::post('/contact', [ContactController::class, 'store'])->name('contact');
 Route::post('/case/contact', [CaseContactController::class, 'store'])->name('case.contact');
 
 Route::middleware('guest')->group(function () {
   Route::get('/login', [LoginController::class, 'create'])->name('login');
+
+  Route::get('/', function () {
+    return redirect()->route('login');
+  })->name('homesite');
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+  Route::get('/', function () {
+    return redirect()->route('home');
+  })->name('homesite');
+
   Route::get('/dashboard', [DashboardController::class, 'index'])->name('home');
   Route::prefix('/profile')->name('profile.')->group(function () {
     Route::get('/', [ProfileController::class, 'index'])->name('index');

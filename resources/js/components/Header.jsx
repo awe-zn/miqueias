@@ -2,7 +2,7 @@ import { usePage, Link } from '@inertiajs/inertia-react';
 
 import imageHelper from '../helper/image';
 
-import logo from '../../images/logo.svg';
+import logo from '../../images/logo.png';
 
 export const Header = () => {
   const { appEnvironment, user } = usePage().props;
@@ -16,7 +16,7 @@ export const Header = () => {
               <img
                 src={imageHelper({ appEnvironment, path: logo })}
                 alt="logo"
-                className="img-fluid"
+                className="img-fluid img-logo"
               />
             </Link>
           </div>
