@@ -52,11 +52,9 @@ export default function Profile() {
                   <Tab eventKey="contact" title="Notificações">
                     <Security />
                   </Tab>
-                  {isAdmin && (
-                    <Tab eventKey="security" title="Segurança">
-                      <Privacy />
-                    </Tab>
-                  )}
+                  <Tab eventKey="security" title="Segurança">
+                    <Privacy />
+                  </Tab>
                 </Tabs>
               </div>
             </div>

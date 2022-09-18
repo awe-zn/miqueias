@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RenewPassword;
 use App\Models\Addres;
 use App\Models\Office;
 use App\Models\State;
@@ -68,5 +69,18 @@ class ProfileController extends Controller
     $office->save();
 
     return redirect()->route('profile.index');
+  }
+
+  public function renew_password(RenewPassword $request)
+  {
+    $input = (object) $request->validated();
+    $user = $request->user();
+
+    $user->forceFill([
+      'password' => bcrypt($input->password),
+      'renew_password' => false,
+    ])->save();
+
+    return redirect()->back();
   }
 }

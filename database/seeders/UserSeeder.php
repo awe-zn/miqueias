@@ -17,9 +17,7 @@ class UserSeeder extends Seeder
     $users = array([
       'name' => 'Miqueias Costa',
       'email' => 'miqueiascostaadv@gmail.com',
-      'email_verified_at' => now(),
       'password' => Hash::make('LlCsU1NrZX'),
-      'remember_token' => Str::random(10),
       'phone_number' => '84 99822-9875',
       'role' => 'advocate',
       'addres_id' => 1,
@@ -27,12 +25,10 @@ class UserSeeder extends Seeder
     ], [
       'name' => 'Daniel Souza',
       'email' => 'daniel@email.com',
-      'email_verified_at' => now(),
       'password' => Hash::make('password'),
-      'remember_token' => Str::random(10),
       'phone_number' => $faker->phoneNumber(),
       'role' => 'advocate',
-      'addres_id' => $faker->numberBetween(2, 21),
+      'addres_id' => 1,
       'office_id' => 2,
     ]);
 
@@ -42,9 +38,7 @@ class UserSeeder extends Seeder
       User::create([
         'name' => $value->name,
         'email' => $value->email,
-        'email_verified_at' => $value->email_verified_at,
         'password' => $value->password,
-        'remember_token' => $value->remember_token,
         'phone_number' => $value->phone_number,
         'role' => $value->role,
         'addres_id' => $value->addres_id,

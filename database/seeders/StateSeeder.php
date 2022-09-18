@@ -10,8 +10,6 @@ class StateSeeder extends Seeder
 {
   public function run()
   {
-    State::truncate();
-
     $json = File::get(database_path('json/federative_units.json'));
     $federative_units = json_decode($json);
 

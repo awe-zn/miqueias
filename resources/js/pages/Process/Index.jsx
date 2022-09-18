@@ -5,7 +5,10 @@ import { FaPlus } from 'react-icons/fa';
 import { AuthLayout } from '../../layout/Auth';
 
 export default function Process() {
-  const { process } = usePage().props;
+  const {
+    process,
+    user: { role },
+  } = usePage().props;
 
   const [filterType, setFilterType] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
@@ -33,14 +36,16 @@ export default function Process() {
             <div className="col-auto">
               <h1 className="text-blue-first fw-bold fz-24 m-0">Processos</h1>
             </div>
-            <div className="col-auto ms-auto">
-              <Link
-                href={route('process.create')}
-                className="btn btn-brand-second fw-bold text-white d-flex align-items-center gapx-3"
-              >
-                Adicionar <FaPlus />
-              </Link>
-            </div>
+            {role === 'admin' && (
+              <div className="col-auto ms-auto">
+                <Link
+                  href={route('process.create')}
+                  className="btn btn-brand-second fw-bold text-white d-flex align-items-center gapx-3"
+                >
+                  Adicionar <FaPlus />
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -52,7 +57,7 @@ export default function Process() {
                 type="email"
                 className="form-control"
                 id="email"
-                placeholder="Pesquisar título, cliente, foro..."
+                placeholder="Pesquisar título..."
                 value={searchTerm}
                 onChange={({ target: { value } }) => setSearchTerm(value)}
               />

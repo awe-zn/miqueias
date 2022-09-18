@@ -1,5 +1,5 @@
 import { usePage } from '@inertiajs/inertia-react';
-import logoWhite from '../../images/logo-white.svg';
+import logoWhite from '../../images/logo-white.png';
 import 'bootstrap';
 
 import { Header } from '../components/Header';

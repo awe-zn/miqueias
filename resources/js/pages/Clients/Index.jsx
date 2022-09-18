@@ -4,8 +4,8 @@ import { FaPlus } from 'react-icons/fa';
 
 import { AuthLayout } from '../../layout/Auth';
 import { Title } from '../../components/auth/Title';
-import Create from '../../components/clients/Create';
-import Show from '../../components/clients/Show';
+import Create from '../../components/users/Create';
+import Show from '../../components/users/Show';
 import Edit from '../../components/clients/Edit';
 
 export default function Clients() {
@@ -106,6 +106,7 @@ export default function Clients() {
       <Create
         showModalCreate={showModalCreate}
         setShowModalCreate={setShowModalCreate}
+        roleToCreate="client"
       />
       <Show
         showModalView={showModalView}

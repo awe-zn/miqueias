@@ -10,8 +10,6 @@ class CountySeeder extends Seeder
 {
   public function run()
   {
-    County::truncate();
-
     $json = File::get(database_path('json/counties.json'));
     $counties = json_decode($json);
 

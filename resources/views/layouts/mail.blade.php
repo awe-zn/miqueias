@@ -19,7 +19,7 @@
   </div>
   <div style="color: #092C4C; background-color: #E0E0E0; font-size: 14px;">
     <div style="max-width: 750px; margin: auto; padding: 16px 12px;">
-      <span>Miquéias Costa - 2021</span>
+      <span>Miquéias Costa - {{ date('Y') }}</span>
     </div>
   </div>
 </body>

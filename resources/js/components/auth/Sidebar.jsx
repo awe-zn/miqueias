@@ -6,6 +6,7 @@ import {
   FaRegAddressCard,
   FaRegFolder,
 } from 'react-icons/fa';
+import { MdAdminPanelSettings } from 'react-icons/md';
 import { Link, usePage } from '@inertiajs/inertia-react';
 
 import { useMediaQuery } from '../../hooks/useMediaQuery';
@@ -70,6 +71,20 @@ export const Sidebar = () => {
                 >
                   <FaRegAddressCard size={24} />
                   <span className="label">Clientes</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  tabIndex={0}
+                  href={route('advocate.index')}
+                  className={
+                    route().current().startsWith('advocate')
+                      ? 'active'
+                      : undefined
+                  }
+                >
+                  <MdAdminPanelSettings size={24} />
+                  <span className="label">Advogados</span>
                 </Link>
               </li>
             </>

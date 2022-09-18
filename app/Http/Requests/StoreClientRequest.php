@@ -26,8 +26,8 @@ class StoreClientRequest extends FormRequest
     return [
       'name' => ['required', 'max:64', 'string'],
       'email' => ['required', 'max:64', 'string', 'email', 'unique:users,email'],
-      'phoneNumber' => ['required', 'max:64', 'string'],
-      'zipCode' => ['required', 'size:8', 'string'],
+      'phoneNumber' => ['required', 'min:14', 'string'],
+      'zipCode' => ['required', 'min:9', 'string'],
       'lineDescription' => ['required', 'max:64', 'string'],
       'numberAddress' => ['required', 'max:8', 'string'],
       'district' => ['required', 'max:64', 'string'],
