@@ -11,6 +11,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\PetitionController;
 use App\Http\Controllers\ProcessController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TaskController;
@@ -74,6 +75,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
       Route::put('/conclude/{id}', [TaskController::class, 'conclude'])->name('conclude');
       Route::delete('/{id}', [TaskController::class, 'destroy'])->name('delete');
     });
+
     Route::prefix('/event')->name('event.')->group(function () {
       Route::post('/', [EventController::class, 'store'])->name('store');
       Route::put('/{id}', [EventController::class, 'update'])->name('update');
@@ -93,6 +95,12 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
       Route::prefix('/advocate')->name('advocate.')->group(function () {
         Route::get('/', [AdvocateController::class, 'index'])->name('index');
         Route::post('/', [AdvocateController::class, 'store'])->name('store');
+      });
+
+      Route::prefix('/petition')->name('petition.')->group(function () {
+        Route::get('/', [PetitionController::class, 'index'])->name('index');
+        Route::get('/{id}', [PetitionController::class, 'show'])->name('show');
+        Route::post('/', [PetitionController::class, 'store'])->name('store');
       });
     });
   });

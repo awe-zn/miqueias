@@ -18,6 +18,9 @@ export default function Login() {
     <UnAuthLayout>
       <form className="d-flex flex-column" onSubmit={handleSubmit}>
         <div className="d-flex flex-column gapy-4">
+          <h1 className="text-blue-first fw-bold fz-24 m-0">
+            Defina uma nova senha
+          </h1>
           <div>
             <label htmlFor="password" className="form-label">
               Senha
@@ -38,7 +41,7 @@ export default function Login() {
           </div>
           <div>
             <label htmlFor="email" className="form-label">
-              Confirmação
+              Confirme
             </label>
             <input
               type="password"

@@ -7,6 +7,7 @@ import {
   FaRegFolder,
 } from 'react-icons/fa';
 import { MdAdminPanelSettings } from 'react-icons/md';
+import { AiOutlineFileProtect } from 'react-icons/ai';
 import { Link, usePage } from '@inertiajs/inertia-react';
 
 import { useMediaQuery } from '../../hooks/useMediaQuery';
@@ -85,6 +86,20 @@ export const Sidebar = () => {
                 >
                   <MdAdminPanelSettings size={24} />
                   <span className="label">Advogados</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  tabIndex={0}
+                  href={route('petition.index')}
+                  className={
+                    route().current().startsWith('petition')
+                      ? 'active'
+                      : undefined
+                  }
+                >
+                  <AiOutlineFileProtect size={24} />
+                  <span className="label">Modelos de petições</span>
                 </Link>
               </li>
             </>
