@@ -54,34 +54,42 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
       Route::put('/notifications', [NotificationController::class, 'update'])->name('notifications');
     });
     Route::prefix('/process')->name('process.')->group(function () {
+      Route::middleware(['advocate'])->group(function () {
+        Route::get('/create', [ProcessController::class, 'create'])->name('create');
+        Route::post('/', [ProcessController::class, 'store'])->name('store');
+        Route::get('/edit/{id}', [ProcessController::class, 'edit'])->name('edit');
+        Route::delete('/{id}', [ProcessController::class, 'destroy'])->name('destroy');
+        Route::put('/conclude/{id}', [ProcessController::class, 'conclude'])->name('conclude');
+        Route::put('/{id}', [ProcessController::class, 'update'])->name('update');
+      });
+
       Route::get('/', [ProcessController::class, 'index'])->name('index');
-      Route::get('/create', [ProcessController::class, 'create'])->name('create');
-      Route::post('/', [ProcessController::class, 'store'])->name('store');
       Route::get('/{id}', [ProcessController::class, 'show'])->name('show');
-      Route::put('/{id}', [ProcessController::class, 'update'])->name('update');
-      Route::get('/edit/{id}', [ProcessController::class, 'edit'])->name('edit');
-      Route::delete('/{id}', [ProcessController::class, 'destroy'])->name('destroy');
-      Route::put('/conclude/{id}', [ProcessController::class, 'conclude'])->name('conclude');
 
       Route::prefix('/files')->name('files.')->group(function () {
         Route::get('/{id}', [ProcessController::class, 'show_file'])->name('show');
-        Route::post('/{id}', [ProcessController::class, 'store_file'])->name('store');
-        Route::delete('/{id}', [ProcessController::class, 'destroy_file'])->name('destroy');
+
+        Route::middleware(['advocate'])->group(function () {
+          Route::post('/{id}', [ProcessController::class, 'store_file'])->name('store');
+          Route::delete('/{id}', [ProcessController::class, 'destroy_file'])->name('destroy');
+        });
       });
     });
-    Route::prefix('/task')->name('task.')->group(function () {
-      Route::post('/', [TaskController::class, 'store'])->name('store');
-      Route::put('/{id}', [TaskController::class, 'update'])->name('update');
-      Route::put('/conclude/{id}', [TaskController::class, 'conclude'])->name('conclude');
-      Route::delete('/{id}', [TaskController::class, 'destroy'])->name('delete');
-    });
 
-    Route::prefix('/event')->name('event.')->group(function () {
-      Route::post('/', [EventController::class, 'store'])->name('store');
-      Route::put('/{id}', [EventController::class, 'update'])->name('update');
-      Route::delete('/{id}', [EventController::class, 'destroy'])->name('delete');
-    });
     Route::middleware(['advocate'])->group(function () {
+      Route::prefix('/task')->name('task.')->group(function () {
+        Route::post('/', [TaskController::class, 'store'])->name('store');
+        Route::put('/{id}', [TaskController::class, 'update'])->name('update');
+        Route::put('/conclude/{id}', [TaskController::class, 'conclude'])->name('conclude');
+        Route::delete('/{id}', [TaskController::class, 'destroy'])->name('delete');
+      });
+
+      Route::prefix('/event')->name('event.')->group(function () {
+        Route::post('/', [EventController::class, 'store'])->name('store');
+        Route::put('/{id}', [EventController::class, 'update'])->name('update');
+        Route::delete('/{id}', [EventController::class, 'destroy'])->name('delete');
+      });
+
       Route::prefix('/calendar')->name('calendar.')->group(function () {
         Route::get('/', [CalendarController::class, 'index'])->name('index');
       });
@@ -108,11 +116,4 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
 Route::prefix('/county')->name('county.')->group(function () {
   Route::get('/{id}', [CountyController::class, 'show'])->name('show');
-});
-
-Route::get('/test', function () {
-  $random = str_shuffle('abcdefghjklmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ234567890!$%^&!$%^&');
-  $password = substr($random, 0, 10);
-
-  return view('mail.user-created', ['name' => 'Teste', 'password' => $password]);
 });

@@ -29,7 +29,7 @@ class UserSeeder extends Seeder
       'phone_number' => $faker->phoneNumber(),
       'role' => 'advocate',
       'addres_id' => 1,
-      'office_id' => 2,
+      'office_id' => app()->environment('local') ? 2 : 1,
     ]);
 
     foreach ($users as $value) {

@@ -36,7 +36,7 @@ export default function Process() {
             <div className="col-auto">
               <h1 className="text-blue-first fw-bold fz-24 m-0">Processos</h1>
             </div>
-            {role === 'admin' && (
+            {role === 'advocate' && (
               <div className="col-auto ms-auto">
                 <Link
                   href={route('process.create')}
