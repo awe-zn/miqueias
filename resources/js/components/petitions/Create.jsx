@@ -11,6 +11,7 @@ import { Title } from '../auth/Title';
 
 export default function Create({ showModalCreate, setShowModalCreate }) {
   const [dragging, setDragging] = useState(false);
+  const [file, setFile] = useState(null);
 
   const { getInputProps, getRootProps, acceptedFiles } = useDropzone({
     maxSize: 2000000,
@@ -34,6 +35,12 @@ export default function Create({ showModalCreate, setShowModalCreate }) {
 
   useEffect(() => {
     if (acceptedFiles.length > 0) {
+      setFile(acceptedFiles[0]);
+    }
+  }, [acceptedFiles]);
+
+  useEffect(() => {
+    if (file) {
       Inertia.post(
         route('petition.store'),
         {
@@ -41,14 +48,16 @@ export default function Create({ showModalCreate, setShowModalCreate }) {
         },
         { forceFormData: true }
       );
+
+      setFile(null);
     }
-  }, [acceptedFiles]);
+  }, [file]);
 
   useEffect(() => {
-    if (acceptedFiles.length > 0 && showModalCreate) {
+    if (file && showModalCreate) {
       setShowModalCreate(false);
     }
-  }, [showModalCreate, acceptedFiles]);
+  }, [showModalCreate, file]);
 
   return (
     <Modal show={showModalCreate} onHide={() => setShowModalCreate(false)}>

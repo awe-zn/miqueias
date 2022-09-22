@@ -109,6 +109,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('/', [PetitionController::class, 'index'])->name('index');
         Route::get('/{id}', [PetitionController::class, 'show'])->name('show');
         Route::post('/', [PetitionController::class, 'store'])->name('store');
+        Route::delete('/{id}', [PetitionController::class, 'destroy'])->name('destroy');
       });
     });
   });

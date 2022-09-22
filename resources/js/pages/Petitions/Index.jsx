@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
-import { usePage } from '@inertiajs/inertia-react';
+import { usePage, Link } from '@inertiajs/inertia-react';
 import { FaPlus } from 'react-icons/fa';
+import { MdDeleteOutline } from 'react-icons/md';
 
 import { AuthLayout } from '../../layout/Auth';
 import { Title } from '../../components/auth/Title';
@@ -61,7 +62,7 @@ export default function Clients() {
             </div>
           </div>
           <div className="col-12">
-            <div className="table-clients table-custom">
+            <div className="table-petitions table-custom">
               <div className="head">
                 <span className="column">Nome</span>
               </div>
@@ -79,6 +80,15 @@ export default function Clients() {
                       rel="noreferrer"
                     >
                       <span className="column">{name}</span>
+                      <Link
+                        as="button"
+                        type="button"
+                        href={route('petition.destroy', id)}
+                        method="delete"
+                        className="action"
+                      >
+                        <MdDeleteOutline size={24} />
+                      </Link>
                     </a>
                   );
                 })}

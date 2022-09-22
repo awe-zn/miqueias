@@ -141,3 +141,35 @@
     }
   }
 }
+
+@mixin petitions-row-layout {
+  grid-template-columns: 1fr 24px;
+}
+.table-petitions {
+  .head {
+    @include petitions-row-layout;
+  }
+  .body {
+    .item {
+      @include petitions-row-layout;
+
+      text-decoration: none;
+      text-align: left;
+      width: 100%;
+      border: none;
+      background: none;
+
+      .action {
+        background: none;
+
+        border: none;
+        padding: 0;
+        height: 100%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+}

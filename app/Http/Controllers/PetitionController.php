@@ -106,6 +106,13 @@ class PetitionController extends Controller
    */
   public function destroy($id)
   {
-    //
+    $file = Petition::where(['id' => $id])->first();
+
+    if ($file) {
+      Storage::delete('petitions/' . $file->path);
+      $file->delete();
+    }
+
+    return redirect()->back();
   }
 }
