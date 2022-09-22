@@ -54,7 +54,7 @@ export default function Create({ showModalCreate, setShowModalCreate }) {
     <Modal show={showModalCreate} onHide={() => setShowModalCreate(false)}>
       <Modal.Body className="p-awe-32">
         <div className="d-flex flex-row gapx-2 align-items-center mb-4">
-          <Title label="Adicionar advogado" />
+          <Title label="Adicionar petições" />
           <button
             type="button"
             className="border-0 bg-transparent d-flex p-0 ms-auto text-blue-first"
