@@ -29,7 +29,7 @@ class StoreProcessRequest extends FormRequest
       'legalInstanceId' => ['required', 'numeric', 'exists:legal_instances,id'],
       'judgment' => ['required', 'string', 'max:32'],
       'legalCourtId' => ['required', 'numeric', 'exists:legal_courts,id'],
-      'legalForumId' => ['required', 'numeric', 'exists:legal_forums,id'],
+      'legalForum' => ['required', 'string'],
       'action' => ['required', 'string', 'max:64'],
       'link' => ['required', 'string', 'max:256', 'url'],
       'description' => ['required', 'string', 'max:256'],

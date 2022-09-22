@@ -91,7 +91,7 @@ export default function Dashboard() {
                       <span>
                         {startsInFormated} - {endsAtFormated}
                       </span>
-                      <strong>Evento</strong>
+                      <strong>{event.title}</strong>
                     </button>
                   );
                 })}
@@ -182,7 +182,7 @@ export default function Dashboard() {
                         title,
                         clients,
                         action,
-                        legal_forum: { name: legalForumName },
+                        legal_forum: legalForumName,
                         updated_at: updatedAt,
                         concluded,
                       }) => {

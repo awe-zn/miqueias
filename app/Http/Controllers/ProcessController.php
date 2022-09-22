@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreProcessRequest;
 use App\Models\ClientProcess;
 use App\Models\LegalCourt;
-use App\Models\LegalForum;
 use App\Models\LegalInstance;
 use App\Models\Process;
 use App\Models\ProcessFile;
@@ -25,7 +24,7 @@ class ProcessController extends Controller
    */
   public function index()
   {
-    $process = Process::with(['clients', 'legal_forum'])->get();
+    $process = Process::with(['clients'])->get();
 
     return Inertia::render('Process/Index', [
       'process' => $process,
@@ -40,14 +39,12 @@ class ProcessController extends Controller
   public function create(Request $request)
   {
     $legal_courts = LegalCourt::all();
-    $legal_forums = LegalForum::all();
     $legal_instances = LegalInstance::all();
     $clients = User::where(['role' => 'client', 'office_id' => Auth::user()->office_id])->get();
 
 
     return Inertia::render('Process/Create', [
       'legal_courts' => $legal_courts,
-      'legal_forums' => $legal_forums,
       'legal_instances' => $legal_instances,
       'clients' => $clients,
     ]);
@@ -70,7 +67,7 @@ class ProcessController extends Controller
     $process->legal_instance_id = $validated->legalInstanceId;
     $process->judgment = $validated->judgment;
     $process->legal_court_id = $validated->legalCourtId;
-    $process->legal_forum_id = $validated->legalForumId;
+    $process->legal_forum = $validated->legalForum;
     $process->action = $validated->action;
     $process->link = $validated->link;
     $process->description = $validated->description;
@@ -101,7 +98,7 @@ class ProcessController extends Controller
    */
   public function show($id)
   {
-    $process = Process::where(['id' => $id, 'office_id' => Auth::user()->office_id])->with(['clients', 'legal_instance', 'legal_court', 'legal_forum', 'office', 'tasks.task_priority', 'tasks.process', 'events.process', 'files'])->first();
+    $process = Process::where(['id' => $id, 'office_id' => Auth::user()->office_id])->with(['clients', 'legal_instance', 'legal_court', 'office', 'tasks.task_priority', 'tasks.process', 'events.process', 'files'])->first();
 
     return Inertia::render('Process/Show', [
       'process' =>  $process,
@@ -123,13 +120,11 @@ class ProcessController extends Controller
     }
 
     $legal_courts = LegalCourt::all();
-    $legal_forums = LegalForum::all();
     $legal_instances = LegalInstance::all();
     $clients = User::where(['role' => 'client', 'office_id' => Auth::user()->office_id])->get();
 
     return Inertia::render('Process/Edit', [
       'legal_courts' => $legal_courts,
-      'legal_forums' => $legal_forums,
       'legal_instances' => $legal_instances,
       'clients' => $clients,
       'process' => $process,
@@ -162,7 +157,7 @@ class ProcessController extends Controller
     $process->legal_instance_id = $validated->legalInstanceId;
     $process->judgment = $validated->judgment;
     $process->legal_court_id = $validated->legalCourtId;
-    $process->legal_forum_id = $validated->legalForumId;
+    $process->legal_forum = $validated->legalForum;
     $process->action = $validated->action;
     $process->link = $validated->link;
     $process->description = $validated->description;

@@ -27,12 +27,11 @@ class CreateProcessTable extends Migration
       $table->date('distributed_in');
       $table->string('observation_description', 128);
       $table->boolean('public')->default(true);
+      $table->string('legal_forum');
       $table->integer('legal_instance_id')->unsigned()->nullable();
       $table->foreign('legal_instance_id')->references('id')->on('legal_instances')->onDelete('SET NULL')->onUpdate('CASCADE');
       $table->integer('legal_court_id')->unsigned()->nullable();
       $table->foreign('legal_court_id')->references('id')->on('legal_courts')->onDelete('SET NULL')->onUpdate('CASCADE');
-      $table->integer('legal_forum_id')->unsigned()->nullable();
-      $table->foreign('legal_forum_id')->references('id')->on('legal_forums')->onDelete('SET NULL')->onUpdate('CASCADE');
       $table->integer('office_id')->unsigned();
       $table->foreign('office_id')->references('id')->on('offices')->onDelete('CASCADE')->onUpdate('CASCADE');
       $table->softDeletes();

@@ -95,7 +95,7 @@ export default function Process() {
                       title,
                       clients,
                       action,
-                      legal_forum: { name: legalForumName },
+                      legal_forum: legalForumName,
                       updated_at: updatedAt,
                       concluded,
                     }) => {

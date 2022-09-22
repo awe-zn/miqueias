@@ -205,9 +205,7 @@ export default function Show() {
                       </span>
                       <span>
                         Foro:{' '}
-                        <span className="text-gray-first">
-                          {legalForum.name}
-                        </span>
+                        <span className="text-gray-first">{legalForum}</span>
                       </span>
                     </div>
                     <div className="d-flex flex-column gapy-awe-12">

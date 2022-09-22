@@ -15,7 +15,7 @@ class DashboardController extends Controller
         $query->whereDate('starts_in', '>=', now())->with(['process'])->limit(3);
       },
       'process' => function ($query) {
-        $query->where('concluded', false)->with(['legal_forum', 'clients'])->limit(4);
+        $query->where('concluded', false)->with(['clients'])->limit(4);
       },
       'tasks' => function ($query) {
         $startWeek = now()->startOfWeek(0);

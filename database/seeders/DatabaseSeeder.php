@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
       UserSeeder::class,
       LegalCourtSeeder::class,
       LegalInstanceSeeder::class,
-      LegalForumSeeder::class,
+      TaskPrioritySeeder::class,
     ]);
   }
 }

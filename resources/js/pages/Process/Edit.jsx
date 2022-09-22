@@ -11,7 +11,6 @@ export default function Process() {
     clients,
     legal_instances: legalInstances,
     legal_courts: legalCourts,
-    legal_forums: legalForums,
     process: {
       id: processId,
       clients: clientsIdFetched,
@@ -20,7 +19,7 @@ export default function Process() {
       legal_instance_id: legalInstanceId,
       judgment,
       legal_court_id: legalCourtId,
-      legal_forum_id: legalForumId,
+      legal_forum: legalForum,
       action,
       link,
       description,
@@ -45,7 +44,7 @@ export default function Process() {
     legalInstanceId,
     judgment,
     legalCourtId,
-    legalForumId,
+    legalForum,
     action,
     link,
     description,
@@ -274,34 +273,19 @@ export default function Process() {
                   </select>
                 </div>
                 <div className="flex-1">
-                  <label htmlFor="legalForumId" className="form-label">
-                    Foro
-                  </label>
-                  <select
-                    className={`form-control ${
-                      errors.legalCourtId
+                  <Input
+                    type="text"
+                    name="legalForum"
+                    label="Foro"
+                    value={data.legalForum}
+                    handleSetValue={handleSetData}
+                    status={
+                      errors.legalForum
                         ? 'is-invalid'
                         : (wasTried && !processing && 'is-valid') || ''
-                    }`.trim()}
-                    value={data.legalForumId}
-                    onChange={({ target: { value } }) =>
-                      setData('legalForumId', value)
                     }
-                    id="legalForumId"
-                  >
-                    <option value="" disabled hidden>
-                      Selecione
-                    </option>
-                    {legalForums
-                      .sort(({ name: a }, { name: b }) =>
-                        a > b ? 1 : a < b ? -1 : 0
-                      )
-                      .map(({ name: nameCounty, id }) => (
-                        <option value={id} key={id}>
-                          {nameCounty}
-                        </option>
-                      ))}
-                  </select>
+                    placeholder="Foro"
+                  />
                 </div>
               </div>
               <div>

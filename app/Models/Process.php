@@ -23,11 +23,6 @@ class Process extends Model
     return $this->hasOne(LegalCourt::class, 'id', 'legal_court_id');
   }
 
-  public function legal_forum()
-  {
-    return $this->hasOne(LegalForum::class, 'id', 'legal_forum_id');
-  }
-
   public function office()
   {
     return $this->belongsTo(Office::class, 'office_id', 'id');
