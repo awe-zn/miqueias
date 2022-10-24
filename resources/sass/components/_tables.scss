@@ -173,3 +173,47 @@
     }
   }
 }
+
+@mixin advocates-row-layout($admin: false) {
+  @if $admin {
+    grid-template-columns: 34.5fr 28.5fr 29.5fr 32px;
+  } @else {
+    grid-template-columns: 34.5fr 28.5fr 29.5fr;
+  }
+}
+.table-advocates {
+  &.admin {
+    .head,
+    .body .item {
+      @include advocates-row-layout(true);
+    }
+  }
+  &.advocate {
+    .head,
+    .body .item {
+      @include advocates-row-layout;
+    }
+  }
+
+  .body {
+    .item {
+      text-decoration: none;
+      text-align: left;
+      width: 100%;
+      border: none;
+      background: none;
+
+      .action {
+        padding: 6px;
+        border: none;
+        border-radius: 2px;
+
+        display: flex;
+
+        color: currentColor;
+
+        background: none;
+      }
+    }
+  }
+}

@@ -187,8 +187,6 @@ class ProcessController extends Controller
    */
   public function destroy($id)
   {
-    // dd($id);
-
     $process = Process::where(['id' => $id, 'office_id' => Auth::user()->office_id])->first();
     if (!$process) {
       return redirect()->route('process.index');

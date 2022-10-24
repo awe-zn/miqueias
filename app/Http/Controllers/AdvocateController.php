@@ -72,4 +72,21 @@ class AdvocateController extends Controller
 
     return redirect()->route('advocate.index');
   }
+
+  /**
+   * Remove the specified resource from storage.
+   *
+   * @param  int  $id
+   * @return \Illuminate\Http\Response
+   */
+  public function destroy($id)
+  {
+    $task = User::find($id);
+
+    if (!$task) return redirect()->route('home');
+
+    $task->delete();
+
+    return redirect()->route('advocate.index');
+  }
 }

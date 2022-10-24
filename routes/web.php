@@ -17,11 +17,6 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
-// Route::inertia('/about', 'About')->name('about');
-// Route::inertia('/action', 'Action')->name('action');
-// Route::inertia('/terms', 'Terms')->name('terms');
-// Route::inertia('/privacy', 'Privacy')->name('privacy');
-
 Route::post('/contact', [ContactController::class, 'store'])->name('contact');
 Route::post('/case/contact', [CaseContactController::class, 'store'])->name('case.contact');
 
@@ -102,7 +97,11 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
       Route::prefix('/advocate')->name('advocate.')->group(function () {
         Route::get('/', [AdvocateController::class, 'index'])->name('index');
-        Route::post('/', [AdvocateController::class, 'store'])->name('store');
+
+        Route::middleware(['superadmin'])->group(function () {
+          Route::post('/', [AdvocateController::class, 'store'])->name('store');
+          Route::delete('/{id}', [AdvocateController::class, 'destroy'])->name('delete');
+        });
       });
 
       Route::prefix('/petition')->name('petition.')->group(function () {

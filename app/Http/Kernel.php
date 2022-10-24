@@ -67,5 +67,6 @@ class Kernel extends HttpKernel
     'password.renewed' => \App\Http\Middleware\PasswordRenewed::class,
     'password.notrenewed' => \App\Http\Middleware\PasswordNotRenewed::class,
     'advocate' => \App\Http\Middleware\Advocate::class,
+    'superadmin' => \App\Http\Middleware\SuperAdmin::class,
   ];
 }
