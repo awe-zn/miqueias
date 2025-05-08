@@ -1,4 +1,4 @@
-FROM php:8-fpm
+FROM php:8.2-fpm
 
 WORKDIR /var/www
 
@@ -44,9 +44,10 @@ RUN echo "upload_max_filesize=120M" >> /usr/local/etc/php/conf.d/docker-php-ext-
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN curl -sL https://deb.nodesource.com/setup_14.x | bash
-RUN apt-get install -y nodejs
-RUN npm install -g yarn -y
+RUN curl -fsSL https://deb.nodesource.com/setup_14.x | bash - && \
+    apt-get update && \
+    apt-get install -y nodejs npm && \
+    npm install -g yarn
 
 RUN groupadd -g 1000 www
 RUN useradd -u 1000 -ms /bin/bash -g www www
