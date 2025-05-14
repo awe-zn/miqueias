@@ -19,7 +19,7 @@ class AvatarController extends Controller
     try {
       $url = Storage::temporaryUrl('avatars/' . $avatar->path, now()->addDays(1));
     } catch (Exception $e) {
-      $url = config('app.env') !== 'local' ? asset('public/images/avatar/user.svg') : asset('images/avatar/user.svg');
+      $url = asset('images/avatar/user.svg');
     }
 
     return redirect()->to($url);
