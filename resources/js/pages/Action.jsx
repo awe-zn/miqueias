@@ -1,9 +1,5 @@
-import { usePage } from '@inertiajs/inertia-react';
-
 import { Footer } from '../components/Footer';
 import { Header } from '../components/Header';
-
-import imageHelper from '../helper/image';
 
 import step1 from '../../images/tutorial/step-1.png';
 import step2 from '../../images/tutorial/step-2.png';
@@ -12,8 +8,6 @@ import step4 from '../../images/tutorial/step-4.png';
 import step5 from '../../images/tutorial/step-5.png';
 
 export default function Action() {
-  const { appEnvironment } = usePage().props;
-
   return (
     <>
       <Header />
@@ -55,7 +49,7 @@ export default function Action() {
                       </p>
                     </div>
                     <img
-                      src={imageHelper({ path: step1, appEnvironment })}
+                      src={step1}
                       alt="Tutorial - Passo 1"
                       className="img-fluid"
                     />
@@ -78,7 +72,7 @@ export default function Action() {
                       </p>
                     </div>
                     <img
-                      src={imageHelper({ path: step2, appEnvironment })}
+                      src={step2}
                       alt="Tutorial - Passo 2"
                       className="img-fluid"
                     />
@@ -98,7 +92,7 @@ export default function Action() {
                       </p>
                     </div>
                     <img
-                      src={imageHelper({ path: step3, appEnvironment })}
+                      src={step3}
                       alt="Tutorial - Passo 3"
                       className="img-fluid mb-awe-40"
                     />
@@ -111,7 +105,7 @@ export default function Action() {
                       </p>
                     </div>
                     <img
-                      src={imageHelper({ path: step4, appEnvironment })}
+                      src={step4}
                       alt="Tutorial - Passo 4"
                       className="img-fluid"
                     />
@@ -131,7 +125,7 @@ export default function Action() {
                       </p>
                     </div>
                     <img
-                      src={imageHelper({ path: step5, appEnvironment })}
+                      src={step5}
                       alt="Tutorial - Passo 5"
                       className="img-fluid"
                     />

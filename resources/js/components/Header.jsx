@@ -1,11 +1,9 @@
 import { usePage, Link } from '@inertiajs/inertia-react';
 
-import imageHelper from '../helper/image';
-
 import logo from '../../images/logo.png';
 
 export const Header = () => {
-  const { appEnvironment, user } = usePage().props;
+  const { user } = usePage().props;
 
   return (
     <header className="shadow">
@@ -13,11 +11,7 @@ export const Header = () => {
         <div className="row align-items-center">
           <div className="col-5 col-md-3">
             <Link href={route('homesite')}>
-              <img
-                src={imageHelper({ appEnvironment, path: logo })}
-                alt="logo"
-                className="img-fluid img-logo"
-              />
+              <img src={logo} alt="logo" className="img-fluid img-logo" />
             </Link>
           </div>
           <div className="col-auto d-md-none ms-auto">
@@ -26,6 +20,7 @@ export const Header = () => {
               type="button"
               data-bs-target="#nav"
               data-bs-toggle="collapse"
+              aria-label="Toggle navigation"
             >
               <span className="line" />
               <span className="line" />

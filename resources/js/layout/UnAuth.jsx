@@ -1,13 +1,8 @@
-import { usePage } from '@inertiajs/inertia-react';
 import PropTypes from 'prop-types';
-
-import imageHelper from '../helper/image';
 
 import logo from '../../images/logo.png';
 
 export default function UnAuthLayout({ children }) {
-  const { appEnvironment } = usePage().props;
-
   return (
     <main>
       <section>
@@ -16,7 +11,7 @@ export default function UnAuthLayout({ children }) {
             <div className="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
               <div className="p-awe-32 bg-white rounded shadow d-flex flex-column">
                 <img
-                  src={imageHelper({ appEnvironment, path: logo })}
+                  src={logo}
                   alt="Miqueias Costa"
                   className="img-fluid logo-login mx-auto mb-4 img-logo"
                 />

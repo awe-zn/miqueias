@@ -10,37 +10,19 @@
 
   <title inertia>{{ config('app.name', 'Miquéias Costa') }}</title>
 
-  @if (env('APP_ENV') === 'production')
-    <link rel="shortcut icon" href="{{ asset('public/images/favicon.ico') }}"
-      type="image/x-icon">
-  @else
-    <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}"
-      type="image/x-icon">
-  @endif
-
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}" type="image/x-icon">
 
   <!-- Fonts -->
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
   <!-- Styles -->
-  @if (env('APP_ENV') === 'production')
-    <link rel="stylesheet" href="{{ asset('public/css/app.css') }}">
-  @else
-    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-  @endif
+  <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 
   <!-- Scripts -->
   @routes
-  @if (env('APP_ENV') === 'production')
-    <script src="{{ asset('public/js/app.js') }}" defer></script>
-  @else
-    <script src="{{ mix('js/app.js') }}" defer></script>
-  @endif
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
-    rel="stylesheet" />
+  <script src="{{ mix('js/app.js') }}" defer></script>
 </head>
 
 <body>

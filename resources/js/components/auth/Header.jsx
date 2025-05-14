@@ -3,13 +3,10 @@ import { usePage, Link } from '@inertiajs/inertia-react';
 import { FaChevronDown } from 'react-icons/fa';
 import { Dropdown } from 'react-bootstrap';
 
-import imageHelper from '../../helper/image';
-
 import logo from '../../../images/logo.png';
 
 export const Header = () => {
   const {
-    appEnvironment,
     user: { name, avatar },
   } = usePage().props;
   const avatarId = useMemo(() => avatar?.id || 0, [avatar]);
@@ -20,7 +17,7 @@ export const Header = () => {
         <div className="row align-items-center">
           <div className="col-4 col-md-auto">
             <img
-              src={imageHelper({ appEnvironment, path: logo })}
+              src={logo}
               alt="Miqueias Costa"
               className="img-fluid img-logo"
             />

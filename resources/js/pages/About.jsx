@@ -1,15 +1,10 @@
-import { usePage } from '@inertiajs/inertia-react';
 import logoWhite from '../../images/logo-white.png';
 import 'bootstrap';
 
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 
-import imageHelper from '../helper/image';
-
 export default function About() {
-  const { appEnvironment } = usePage().props;
-
   return (
     <>
       <Header />
@@ -49,7 +44,7 @@ export default function About() {
                 "
                 >
                   <img
-                    src={imageHelper({ path: logoWhite, appEnvironment })}
+                    src={logoWhite}
                     alt="Logo do Miqueias"
                     className="img-fluid px-4"
                   />
